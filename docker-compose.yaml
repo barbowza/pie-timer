@@ -1,0 +1,15 @@
+version: '3.6'
+# $ docker-compose --project-name pietimer up
+services:
+  httpd:
+    image: httpd:2.4
+    container_name: httpd
+    networks:
+      - net
+    ports:
+      - 3001:80  
+    volumes:
+      - ./docs:/usr/local/apache2/htdocs/
+    tty: true
+networks:
+  net:
