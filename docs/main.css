@@ -53,3 +53,26 @@
     }
   }
   
+  
+  .demo :first-child {
+    margin-bottom: 20px;
+  }
+  .anim2progress {
+    -webkit-transform: rotate(-90deg);
+            transform: rotate(-90deg);
+  }
+  .anim2progress__meter {
+    fill: green;
+
+  }
+  .anim2progress__value {
+    fill: none;
+  }
+  .anim2progress__meter {
+    stroke: #e6e6e6;
+  }
+  .anim2progress__value {
+    stroke: #f73a32;
+    stroke-linecap: round;
+  }
+  

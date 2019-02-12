@@ -50,17 +50,57 @@
               >button</a
             >
           </div>
+
           <div class="column has-background-warning is-half">
             <div>2 The clock goes here</div>
             <div>
             </div>
-            <div class="demo">
+            <div class="">
                 <svg class="animprogress" width="120" height="120" viewBox="0 0 120 120">
                   <circle cx="60" cy="60" r="54" fill="none" stroke="#e6e6e6" stroke-width="12" />
                   <circle class="animprogress__value" cx="60" cy="60" r="54" fill="none" stroke="#f77a52" stroke-width="12" />
                 </svg>
             </div>              
+
+            <div class="demo">
+                <svg class="anim2progress" width="300" height="300" viewBox="0 0 300 300">
+                  <circle class="anim2progress__meter" cx="150" cy="150" r="104" stroke-width="24" />
+                  <circle class="anim2progress__value" cx="150" cy="150" r="104" stroke-width="12" />
+                </svg>
+                <input id="slidercontrol" type="range" value="60" />
+              </div>            
           </div>
+          <script>
+              // these units are relative to the viewport.
+              // (120 / 2) - (12 / 2) = 54
+              // 2 * π * R  = C
+              // 2 * π * 54 = 339.292
+              // (220 / 2) - (12 / 2) = 105
+              // 2 * π * 105 = 659.734
+
+              var control = document.getElementById('slidercontrol');
+              var progressValue = document.querySelector('.anim2progress__value');
+              
+              var RADIUS = 105;
+              var CIRCUMFERENCE = 2 * Math.PI * RADIUS;
+              
+              function progress(value) {
+                var progress = value / 100;
+                var dashoffset = CIRCUMFERENCE * (1 - progress);
+                
+                console.log('progress:', value + '%', '|', 'offset:', dashoffset)
+                
+                progressValue.style.strokeDashoffset = dashoffset;
+              }
+              
+              control.addEventListener('input', function(event) {
+                progress(event.target.valueAsNumber);
+              });
+              
+              progressValue.style.strokeDasharray = CIRCUMFERENCE;
+              progress(60);
+          </script>
+          
           <div class="column has-background-light">
             <div class="field">
               <label class="label">Name</label>
@@ -161,7 +201,5 @@
       </div>
     </section>
   </body>
-  <script>
-    document.getElementById("text").innerHTML = "Text added by JavaScript code";
-  </script>
+    
 </html>
