@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>workup 4</title>
+    <link rel="stylesheet" href="darkTheme.css" />
+    <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"
+    ></script>
+  </head>
+  <body>
+    <section class="section">
+      <div class="container">
+        <div class="block">
+          <section class="hero">
+            <div class="hero-body">
+              <div class="container">
+                <h1 class="title">workup 4</h1>
+                <h2 class="subtitle">animating svg</h2>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="block">
+          <div class="columns">
+            <div class="column is-2"></div>
+            <div class="column is-8">
+              <div class="block">
+                <div class="container has-background-grey-darker">
+                        <svg 
+                        viewBox="0 0 1000 1000" 
+                        width="400" height="400"
+                        preserveAspectRatio="xMidYMid"
+                        
+                        onload="drawCircle();"> 
+                       <script> 
+                         function drawCircle() {
+                             // center point
+                             var cX = 300,
+                                 cY = 300;
+                                 radius = 300,
+                     
+                                 p1 = {x: cX+radius, y: cY},
+                                 p2 = {x: cX-radius, y: cY},
+                     
+                                 circle = document.getElementById("arc"),
+                                 angle = 0;
+                     
+                             window.timer = window.setInterval(
+                                 function() {
+                                 angle -= 1;  
+                                 angle %= 360;
+                                 var radians= (angle/180) * Math.PI;
+                                 var x = cX + Math.cos(radians) * radius;
+                                 var y = cY + Math.sin(radians) * radius;
+                     
+                                 if (Math.abs(angle) < 180 && angle != 0)
+                                     d= 'M ' + p1.x + ',' + p1.y + ' A' + radius+ ',' + radius+ (Math.abs(angle)==180?' 0 1 0 ':' 0 0 0 ')+x+' '+y;
+                                 else
+                                     d= 'M ' + p1.x + ',' + p1.y + ' A' + radius+ ',' + radius+ ' 0 1 0 '+p2.x+' '+p2.y +
+                                 ' M ' + p2.x + ',' + p2.y + ' A' + radius+ ',' + radius+ (Math.abs(angle)==0?' 0 1 0 ':' 0 0 0 ')+x+' '+y;
+                                 
+                                 circle.setAttribute("d", d);
+                     
+                                 if (Math.abs(angle) == 0)
+                                     window.clearInterval(window.timer);
+                             } 
+                           ,100)
+                         }
+                         </script> 
+                         <path d="" id="arc" fill="none" stroke="blue" stroke-width="2" />
+                     </svg>                    
+                </div>
+              </div>
+            </div>
+            <div class="column is-2"></div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="container">
+        <div class="block">
+          <div class="columns">
+            <div class="column is-2"></div>
+            <div class="column is-8">
+              <div class="block">
+                <div class="container has-background-grey-darker">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="400" height="400">
+                            <rect x="0" y="0" width="1000" height="1000"/>
+                            <circle cx="500" cy="500" r="500" fill="red"/>
+                            <rect x="0" y="500" width="1000" height="500"/>
+                            <rect x="0" y=  "0" width="1000" height="500">
+                              <animateTransform attributeName="transform" type="rotate" begin="0s" dur="5s" fill="freeze" from="0,500,500" to="270,500,500"/>
+                            </rect>
+                          </svg>
+                </div>
+              </div>
+            </div>
+            <div class="column is-2"></div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="container">
+        <div class="block">
+          <div class="columns">
+            <div class="column is-2"></div>
+            <div class="column is-8">
+              <div class="block">
+                <div class="container has-background-grey-darker">
+                        <svg viewbox="-1 -1 2 2">
+                                <path fill="#1EB287">
+                                  <animate 
+                                           attributeName="d" 
+                                           dur="3000ms" 
+                                           repeatCount="indefinite"
+                                           values="M 1 0 A 1 1 0 0 1 0.8090169943749475 0.5877852522924731 L 0 0
+                                                   Z;
+                              
+                                                   M 1 0  A 1 1 0 1 1 -1.8369701987210297e-16 -1 L 0 0
+                                                   Z;"/>
+                                </path>
+                              </svg>
+
+                </div>
+              </div>
+            </div>
+            <div class="column is-2"></div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="container">
+        <div class="block">
+          <div class="columns">
+            <div class="column is-2"></div>
+            <div class="column is-8">
+              <div class="block">
+                <div class="container has-background-grey-darker">
+                        <svg viewbox="-2 -2 102 102">
+                                <path fill="#1EB287">
+                                  <animate 
+                                           attributeName="d" 
+                                           dur="3000ms" 
+                                           repeatCount="indefinite"
+                                           values="M 0,0 
+                                                   C 50,0 50,0 100,0
+                                                   100,50 100,50 100,100
+                                                   50,100 50,100 0,100
+                                                   0,50 0,50 0,0
+                                                   Z;
+                              
+                                                   M 25,50 
+                                                   C 37.5,25 37.5,25 50,0 
+                                                   75,50 75,50 100,100
+                                                   50,100 50,100 0,100
+                                                   12.5,75 12.5,75 25,50
+                                                   Z;"/>
+                                </path>
+                              </svg>
+
+                </div>
+              </div>
+            </div>
+            <div class="column is-2"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="block">
+          <div class="field is-grouped is-grouped-centered">
+            <p class="control">
+              <span class="select">
+                <select name="duration" id="duration">
+                  <option value="10">10 seconds</option>
+                  <option value="60">1 minute</option>
+                  <option value="300">5 minutes</option>
+                </select>
+              </span>
+            </p>
+            <p class="control">
+              <a class="button is-primary">
+                Start
+              </a>
+            </p>
+            <p class="control">
+              <a class="button is-light">
+                Reset
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
