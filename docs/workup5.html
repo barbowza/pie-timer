@@ -34,11 +34,33 @@
               <div class="block">
                 <div class="container has-background-grey-darker">
                         <svg 
+                        viewBox="-1 -1 2 2" 
+                        style="transform: rotate(-90deg)"
+                        width="400" height="400"
+                        preserveAspectRatio="xMidYMid"> 
+                            <!-- <path d="" id="pie" fill="blue" stroke="red" stroke-width="2" /> -->
+                            <path id="pie" d="M 1 0 A 1 1 0 0 1 1 0 L 0 0" fill="Coral"></path>
+                     </svg>                    
+                </div>
+              </div>
+            </div>
+            <div class="column is-2"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="block">
+          <div class="columns">
+            <div class="column is-2"></div>
+            <div class="column is-8">
+              <div class="block">
+                <div class="container has-background-grey-darker">
+                        <svg 
                         viewBox="0 0 1000 1000" 
                         width="400" height="400"
                         preserveAspectRatio="xMidYMid"
                         > 
-
                             <path d="" id="arc" fill="none" stroke="red" stroke-width="2" />
                      </svg>                    
                 </div>
@@ -52,8 +74,11 @@
 
     </section>
     <script type="module">
-        import { drawCircle } from '/docs/workup5.mjs';
-        drawCircle();
+        import { drawCircleEx, drawPie, animatePie } from '/docs/workup5.mjs';
+        drawCircleEx();
+        const elSvg = document.getElementById('pie');
+        // drawPie(elSvg);
+        animatePie(elSvg);
     </script>
       </body>
   </html>
