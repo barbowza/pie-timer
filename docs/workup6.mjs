@@ -1,19 +1,66 @@
 
-export function animatePie(elSvg) {
-    let startTime = performance.now();
-    const duration = 10 * 1000;
-    let request;
+let elSvg;
+let request;
+
+let startTime
+let currentTime;
+let elapsed = 0;
+let duration = 10 * 1000;
+
+export function init(_elSvg) {
+    elSvg = _elSvg;
+    draw(elSvg, 1);
+    
+    document.addEventListener('click', (e) => {
+        const element = e.target.text;
+        if (["Start", "Pause", "Reset"].includes(element)) {
+            if ("Start" === element) {
+                currentTime = performance.now();
+                startTime = currentTime - elapsed;
+                animatePie(elSvg);
+                e.target.text = "Pause";
+            } else if ("Pause" === element) {
+                pausePie();
+                e.target.text = "Start";
+            } else if ("Reset" === element) {
+                elapsed = 0;
+                startTime = currentTime = performance.now();
+                draw(elSvg, 0);
+            }
+        }
+    });
+
+    document.addEventListener('change', (e) => {
+        console.log(e.target.id, e.target.value);
+        if ("duration" === e.target.id) {
+            duration = +e.target.value * 1000;
+        }
+    });
+}
+
+function animatePie(elSvg) {
     const animate = () => {
-        const currentTime = performance.now();
-        const percentage = (currentTime - startTime) / duration;
-        const pathData = getPath(0, percentage);
-        elSvg.setAttribute('d', pathData);
+        currentTime = performance.now();
+        elapsed = currentTime - startTime;
+        const percentage = elapsed / duration;
+        // const pathData = getPath(0, percentage);
+        // elSvg.setAttribute('d', pathData);
+        draw(elSvg, percentage);
         if (percentage >= 1) {
             startTime = currentTime;
         }
         request = requestAnimationFrame(animate);
     };
     animate();
+}
+
+function draw(elSvg, percentage) {
+    const pathData = getPath(0, percentage);
+    elSvg.setAttribute('d', pathData);
+}
+
+function pausePie() {
+    cancelAnimationFrame(request);
 }
 
 // Percentages in 0.0 - 1.0 range
@@ -35,4 +82,3 @@ function getCoordinatesForPercent(percent) {
     const y = Math.sin(2 * Math.PI * percent);
     return [x, y];
 }
-

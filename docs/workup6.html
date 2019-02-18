@@ -42,51 +42,49 @@
     </section>
 
     <section class="container">
-            <div class="container">
-                    <div class="columns">
-                        <div class="column is-2"></div>
-                        <div class="column is-8">
-                            <div class="block">
-                                <div class="container">
-                                        <nav class="level">
-                                                <div class="level-left">
-                                            <p class="level-item has-text-centered">
-                                                <div class="select is-rounded">
-                                                    <select id="duration">
-                                                        <option value="">-- Select Duration --</option>
-                                                        <option value="1">1 second</option>
-                                                        <option value="5">5 seconds</option>
-                                                        <option value="10">10 seconds</option>
-                                                        <option value="15">15 seconds</option>
-                                                        <option value="30">30 seconds</option>
-                                                        <option value="60">1 minute</option>
-                                                    </select>
-                                                </div>
-                                            </p>
+        <div class="container">
+            <div class="columns">
+                <div class="column is-2"></div>
+                <div class="column is-8">
+                    <div class="block">
+                        <div class="container">
+                            <nav class="level">
+                                <div class="level-left">
+                                    <p class="level-item has-text-centered">
+                                        <div class="select is-rounded">
+                                            <select id="duration">
+                                                <option value="">-- Select Duration --</option>
+                                                <option value="1">1 second</option>
+                                                <option value="5">5 seconds</option>
+                                                <option value="10">10 seconds</option>
+                                                <option value="15">15 seconds</option>
+                                                <option value="30">30 seconds</option>
+                                                <option value="60">1 minute</option>
+                                            </select>
                                         </div>
-                                        <div class="level-right">
-                                                <p class="level-item has-text-centered">
-                                                <a class="button is-success">Pause</a>
-                                            </p>
-                                            <p class="level-item has-text-centered">
-                                                <a class="button is-success">Reset</a>
-                                            </p>
-                                        </div>
-                                        </nav>
-                                
-
+                                    </p>
                                 </div>
-                            </div>
+                                <div class="level-right">
+                                    <p class="level-item has-text-centered">
+                                        <a class="button is-success">Start</a>
+                                    </p>
+                                    <p class="level-item has-text-centered">
+                                        <a class="button is-success">Reset</a>
+                                    </p>
+                                </div>
+                            </nav>
                         </div>
-                        <div class="column is-2"></div>
                     </div>
                 </div>
+                <div class="column is-2"></div>
+            </div>
+        </div>
     </section>
 
     <script type="module">
-        import { animatePie } from '/docs/workup6.mjs';
+        import { init } from '/docs/workup6.mjs';
         const elSvg = document.getElementById('pie');
-        animatePie(elSvg);
+        init(elSvg);
     </script>
 </body>
   </html>
