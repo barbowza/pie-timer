@@ -1,18 +1,19 @@
 
 export function animatePie(elSvg) {
-    let percentage = 0;
-    const duration = 4 * 1000;
-    const interval = 10;
-    const increment = 1 / (duration / interval);
-    window.pietimer = window.setInterval(
-        () => {
-            percentage += increment;
-            const pathData = getPath(0, percentage);
-            elSvg.setAttribute('d', pathData);
-            if (percentage >= 1) {
-                percentage = 0;
-            }
-        }, interval);
+    let startTime = performance.now();
+    const duration = 10 * 1000;
+    let request;
+    const animate = () => {
+        const currentTime = performance.now();
+        const percentage = (currentTime - startTime) / duration;
+        const pathData = getPath(0, percentage);
+        elSvg.setAttribute('d', pathData);
+        if (percentage >= 1) {
+            startTime = currentTime;
+        }
+        request = requestAnimationFrame(animate);
+    };
+    animate();
 }
 
 // Percentages in 0.0 - 1.0 range
@@ -34,3 +35,4 @@ function getCoordinatesForPercent(percent) {
     const y = Math.sin(2 * Math.PI * percent);
     return [x, y];
 }
+
