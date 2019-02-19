@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>workup7</title>
+    <link rel="stylesheet" href="darkTheme.css" />
+      <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"
+    ></script>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        svg {
+            max-width: 75%; /* the contents will scale to fit because of viewBox */
+        }
+    </style>
+  </head>
+  ody>
+    <div class="container">
+        <section class="hero is-primary">
+            <div class="hero-body">
+                <h1 class="title">workup7</h1>
+                <h2 class="subtitle">animating svg</h2>
+            </div>
+        </section>
+    </div>
+
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column"></div>
+                <div class="column is-three-quarters has-background-grey-darker">
+                    <div class="container has-text-centered">
+                        <svg viewBox="-1 -1 2 2" style="transform: rotate(-90deg)" preserveAspectRatio="xMidYMid">
+                            <path id="pie" d="M 1 0 A 1 1 0 0 1 1 0 L 0 0" fill="Coral"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="column"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-2"></div>
+                <div class="column is-8">
+                    <div class="block">
+                        <div class="container">
+                            <nav class="level">
+                                <div class="level-left">
+                                    <p class="level-item has-text-centered">
+                                        <div class="select is-rounded">
+                                            <select id="duration">
+                                                <option value="5">-- Duration --</option>
+                                            </select>
+                                        </div>
+                                    </p>
+                                </div>
+                                <div class="level-right">
+                                    <p class="level-item has-text-centered">
+                                        <a class="button is-success">Start</a>
+                                    </p>
+                                    <p class="level-item has-text-centered">
+                                        <a class="button is-success">Reset</a>
+                                    </p>
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-2"></div>
+            </div>
+        </div>
+    </section>
+
+    <script type="module">
+        import { Pie } from '/docs/pie.js';
+        import { populateDuration, attachControls } from '/docs/workup7.mjs';
+        const elDuration = document.getElementById('duration');
+        populateDuration(document, elDuration);
+        const elSvg = document.getElementById('pie');
+        const pie = new Pie(elSvg);
+        pie.draw();
+        attachControls(pie, document);
+    </script>
+</body>
+  </html>

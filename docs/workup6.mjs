@@ -43,8 +43,6 @@ function animatePie(elSvg) {
         currentTime = performance.now();
         elapsed = currentTime - startTime;
         const percentage = elapsed / duration;
-        // const pathData = getPath(0, percentage);
-        // elSvg.setAttribute('d', pathData);
         draw(elSvg, percentage);
         if (percentage >= 1) {
             startTime = currentTime;
