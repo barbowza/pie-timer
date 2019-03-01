@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Workup8</title>
+    <title>Pie Timer</title>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="darkTheme.css" />
@@ -18,7 +18,7 @@
     <section class="hero is-info is-bold is-small">
         <div class="hero-body">
             <div class="container">
-                <h1 class="title">workup8</h1>
+                <h1 class="title">Pie Timer</h1>
                 <h2 class="subtitle">Responsive Layout</h2>
             </div>
         </div>
@@ -28,10 +28,9 @@
         <div class="container">
             <div class="columns is-centered">
                 <div class="column is-two-fifths has-text-centered">
-                    <svg
-                    viewBox="-1 -1 2 2"
-                    style="transform: rotate(-90deg)"
-                  ></svg>
+                    <svg viewBox="-1 -1 2 2" style="transform: rotate(-90deg)" preserveAspectRatio="xMidYMid">
+                        <path id="pie-path" d="M 1 0 A 1 1 0 0 1 1 0 L 0 0" fill="Coral"></path>
+                    </svg>
                 </div>
             </div>
         </div>
@@ -57,7 +56,19 @@
     </section>
 
 </body>
-<script src="piestatic.js"></script>
+
+<script type="module">
+    import { Pie } from '/docs/pie.js';
+    import { populateDuration, attachControls } from '/docs/controls.mjs';
+
+    const elDuration = document.getElementById('duration');
+    populateDuration(document, elDuration);
+    const elSvg = document.getElementById('pie-path');
+    const pie = new Pie(elSvg);
+    pie.draw();
+    attachControls(pie, document);
+</script>
+
 </html>
 <!DOCTYPE html>
 <html>
