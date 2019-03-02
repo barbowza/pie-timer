@@ -58,13 +58,13 @@
 </body>
 
 <script type="module">
-    import { Pie } from './pie.js';
+    import { Pie } from './pie.mjs';
     import { populateDuration, attachControls } from './controls.mjs';
 
     const elDuration = document.getElementById('duration');
     populateDuration(document, elDuration);
-    const elSvg = document.getElementById('pie-path');
-    const pie = new Pie(elSvg);
+    const elSvgPath = document.getElementById('pie-path');
+    const pie = new Pie(elSvgPath);
     pie.draw();
     attachControls(pie, document);
 </script>
