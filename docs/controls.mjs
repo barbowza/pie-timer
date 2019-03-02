@@ -18,6 +18,9 @@ export function populateDuration(document, elDuration) {
         { "value": 3*60, "text": "3 minutes" },
         { "value": 5*60, "text": "5 minutes" },
         { "value": 10*60, "text": "10 minutes" },
+        { "value": 15*60, "text": "15 minutes" },
+        { "value": 30*60, "text": "30 minutes" },
+        { "value": 60*60, "text": "60 minutes" },
     ];
     let defaultValue = 5;
     options.forEach(option => {
