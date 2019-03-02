@@ -59,15 +59,12 @@
 
 <script type="module">
     import { Pie } from './pie.mjs';
-    import { populateDuration, attachControls } from './controls.mjs';
+    import { Controls } from './controls.mjs';
 
     const elSvgPath = document.getElementById('pie-path');
     const pie = new Pie(elSvgPath);
+    const controls = new Controls(pie, document, 'duration');
     pie.draw();
-    attachControls(pie, document);
-
-    const elDuration = document.getElementById('duration');
-    populateDuration(document, elDuration);
 </script>
 
 </html>

@@ -2,75 +2,103 @@ let gAnimationFrameRequest; // Handle to requestAnimationFrame
 let gStartTime
 let gCurrentTime;
 let gElapsed = 0;            // elapsed runtime in ms
-let gDuration = 10 * 1000;   // final runtime in ms
+let gDuration;
 
-export function populateDuration(document, elDuration) {
-    elDuration.innerHTML = ''; // remove ALL child nodes
-    const options = [
-        { "value": 5, "text": "-- Duration --" },
-        { "value": 1, "text": "1 second" },
-        { "value": 5, "text": "5 seconds" },
-        { "value": 10, "text": "10 seconds", "default": true  },
-        { "value": 15, "text": "15 seconds" },
-        { "value": 30, "text": "30 seconds" },
-        { "value": 60, "text": "1 minute" },
-        { "value": 2*60, "text": "2 minutes" },
-        { "value": 3*60, "text": "3 minutes" },
-        { "value": 5*60, "text": "5 minutes" },
-        { "value": 10*60, "text": "10 minutes" },
-        { "value": 15*60, "text": "15 minutes" },
-        { "value": 30*60, "text": "30 minutes" },
-        { "value": 60*60, "text": "60 minutes" },
-    ];
-    let defaultValue = 5;
-    options.forEach(option => {
+const gOptions = [
+    { "value": 5, "text": "-- Duration --", "first": true},
+    { "value": 1, "text": "1 second" },
+    { "value": 5, "text": "5 seconds" },
+    { "value": 10, "text": "10 seconds", "default": true },
+    { "value": 15, "text": "15 seconds" },
+    { "value": 30, "text": "30 seconds" },
+    { "value": 60, "text": "1 minute" },
+    { "value": 2 * 60, "text": "2 minutes" },
+    { "value": 3 * 60, "text": "3 minutes" },
+    { "value": 5 * 60, "text": "5 minutes" },
+    { "value": 10 * 60, "text": "10 minutes" },
+    { "value": 15 * 60, "text": "15 minutes" },
+    { "value": 30 * 60, "text": "30 minutes" },
+    { "value": 60 * 60, "text": "60 minutes" },
+    { "value": "custom", "text": "Custom Duration", "last": true },
+];
+
+export function Controls (pie, document, durationId) {
+    this._pie = pie;
+    this._document = document;
+    this._elDuration = document.getElementById(durationId);
+    this._options = gOptions;
+    this.populateDuration();
+    this.attachControls();
+}
+
+
+Controls.prototype.populateDuration = function () {
+    this._elDuration.innerHTML = '';      // remove ALL child nodes of <select>
+    this._options.forEach(option => {
         const opt = document.createElement("option");
         opt.value = option.value;
         opt.innerHTML = option.text;
-        // then append it to the select element
-        elDuration.appendChild(opt);
+        // append it to the <select> element
+        this._elDuration.appendChild(opt);
         if (option.default) {
-            elDuration.value = option.value;
-            setDuration(option.value);
+            this._elDuration.value = option.value;
+            this._setDuration(option.value);
         }
     });
 }
 
 
-export function attachControls(pie, document) {
-    document.addEventListener('click', (e) => {
+Controls.prototype.attachControls = function() {
+    this._document.addEventListener('click', (e) => {
         const element = e.target.text;
         if (["Start", "Pause", "Reset"].includes(element)) {
             if ("Start" === element) {
                 gCurrentTime = performance.now();
                 gStartTime = gCurrentTime - gElapsed;
-                startAnimation(pie);
+                this._startAnimation(this._pie);
                 e.target.text = "Pause";
             } else if ("Pause" === element) {
-                pauseAnimation();
+                this._pauseAnimation();
                 e.target.text = "Start";
             } else if ("Reset" === element) {
                 gElapsed = 0;
                 gStartTime = gCurrentTime = performance.now();
-                pie.percentage = 0;
-                pie.draw();
+                this._pie.percentage = 0;
+                this._pie.draw();
             }
         }
     });
 
-    document.addEventListener('change', (e) => {
+    this._document.addEventListener('change', (e) => {
         if ("duration" === e.target.id) {
-            setDuration(e.target.value);
+            const val = e.target.value;
+            if (isNumeric(val)) {
+                this._setDuration(e.target.value);
+            }
+            // if (val === 'custom') {
+            //     const customValue = 75; // TODO get from number range dialog
+            //     const customOption = { "value": customValue, "text": `${customValue} seconds` };
+            //     this._Options.push(customOption).sort((a, b) => {
+            //         if (a.first) {
+            //             return -1;
+            //         } else if (b.last) {
+            //             return 1;
+            //         } else {
+            //             return b.value - a.value;
+            //         }
+            //     });
+            //     this._setDuration(customValue);
+            // }
         }
     });
 }
 
-function startAnimation(pie) {
+Controls.prototype._startAnimation = function () {
     const animate = () => {
         gCurrentTime = performance.now();
         gElapsed = gCurrentTime - gStartTime;
-        const percentage = pie.percentage = gElapsed / gDuration;  // percent is 0 - 1
-        pie.draw();
+        const percentage = this._pie.percentage = gElapsed / gDuration;  // percent is 0 - 1
+        this._pie.draw();
         if (percentage >= 1) {
             gStartTime = gCurrentTime;
         }
@@ -80,11 +108,15 @@ function startAnimation(pie) {
 
 }
 
-function pauseAnimation() {
+Controls.prototype._pauseAnimation = function () {
     cancelAnimationFrame(gAnimationFrameRequest);
     gAnimationFrameRequest = null;
 }
 
-function setDuration(seconds) {
+Controls.prototype._setDuration = function (seconds) {
     gDuration = seconds * 1000;
+}
+
+function isNumeric(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
 }
