@@ -1,13 +1,8 @@
-let gAnimationFrameRequest; // Handle to requestAnimationFrame
-let gStartTime
-let gCurrentTime;
-let gElapsed = 0;            // elapsed runtime in ms
-
 const gOptions = [
     { "value": 5, "text": "-- Duration --", "first": true},
     { "value": 1, "text": "1 second" },
-    { "value": 5, "text": "5 seconds" },
-    { "value": 10, "text": "10 seconds", "default": true },
+    { "value": 5, "text": "5 seconds", "default": true },
+    { "value": 10, "text": "10 seconds" },
     { "value": 15, "text": "15 seconds" },
     { "value": 30, "text": "30 seconds" },
     { "value": 60, "text": "1 minute" },
@@ -27,6 +22,10 @@ export function Controls (pie, document, durationId) {
     this._elDuration = document.getElementById(durationId);
     this._options = gOptions;
     this._duration = null;
+    this._elapsed = 0;
+    this._currentTime = null;
+    this._startTime = null;
+    this._animationFrameRequest = null; // Handle to requestAnimationFrame
     this.populateDuration();
     this.attachControls();
 }
@@ -53,16 +52,16 @@ Controls.prototype.attachControls = function() {
         const element = e.target.text;
         if (["Start", "Pause", "Reset"].includes(element)) {
             if ("Start" === element) {
-                gCurrentTime = performance.now();
-                gStartTime = gCurrentTime - gElapsed;
+                this._currentTime = performance.now();
+                this._startTime = this._currentTime - this._elapsed;
                 this._startAnimation(this._pie);
                 e.target.text = "Pause";
             } else if ("Pause" === element) {
                 this._pauseAnimation();
                 e.target.text = "Start";
             } else if ("Reset" === element) {
-                gElapsed = 0;
-                gStartTime = gCurrentTime = performance.now();
+                this._elapsed = 0;
+                this._startTime = this._currentTime = performance.now();
                 this._pie.percentage = 0;
                 this._pie.draw();
             }
@@ -95,22 +94,22 @@ Controls.prototype.attachControls = function() {
 
 Controls.prototype._startAnimation = function () {
     const animate = () => {
-        gCurrentTime = performance.now();
-        gElapsed = gCurrentTime - gStartTime;
-        const percentage = this._pie.percentage = gElapsed / this._duration;  // percent is 0 - 1
+        this._currentTime = performance.now();
+        this._elapsed = this._currentTime - this._startTime;
+        const percentage = this._pie.percentage = this._elapsed / this._duration;  // percent is 0 - 1
         this._pie.draw();
         if (percentage >= 1) {
-            gStartTime = gCurrentTime;
+            this._startTime = this._currentTime;
         }
-        gAnimationFrameRequest = requestAnimationFrame(animate);
+        this._animationFrameRequest = requestAnimationFrame(animate);
     };
     animate();
 
 }
 
 Controls.prototype._pauseAnimation = function () {
-    cancelAnimationFrame(gAnimationFrameRequest);
-    gAnimationFrameRequest = null;
+    cancelAnimationFrame(this._animationFrameRequest);
+    this._animationFrameRequest = null;
 }
 
 Controls.prototype._setDurationFromSeconds = function (seconds) {
