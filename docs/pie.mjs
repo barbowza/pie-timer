@@ -1,7 +1,8 @@
-export function Pie (elSvg, percentage = 1) {
-  this._elSvg = elSvg;
+export function Pie (elSvgPath, percentage = 1, colour = 'Coral') {
+  this._elSvgPath = elSvgPath;
   this._percentage = percentage;
   this._startPercentage = 0;
+  this._colour = colour;
 
   Object.defineProperty(this, "percentage", {
     get() {
@@ -15,8 +16,8 @@ export function Pie (elSvg, percentage = 1) {
 }
 
 Pie.prototype.draw = function () {
-  const pathData = getPath(this._startPercentage, this._percentage);
-  this._elSvg.setAttribute('d', pathData);
+  this._elSvgPath.setAttribute('fill', this._colour);
+  this._elSvgPath.setAttribute('d', getPath(this._startPercentage, this._percentage));
 }
 
 
