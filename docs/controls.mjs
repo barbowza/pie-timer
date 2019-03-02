@@ -2,7 +2,6 @@ let gAnimationFrameRequest; // Handle to requestAnimationFrame
 let gStartTime
 let gCurrentTime;
 let gElapsed = 0;            // elapsed runtime in ms
-let gDuration;
 
 const gOptions = [
     { "value": 5, "text": "-- Duration --", "first": true},
@@ -27,6 +26,7 @@ export function Controls (pie, document, durationId) {
     this._document = document;
     this._elDuration = document.getElementById(durationId);
     this._options = gOptions;
+    this._duration = null;
     this.populateDuration();
     this.attachControls();
 }
@@ -42,7 +42,7 @@ Controls.prototype.populateDuration = function () {
         this._elDuration.appendChild(opt);
         if (option.default) {
             this._elDuration.value = option.value;
-            this._setDuration(option.value);
+            this._setDurationFromSeconds(option.value);
         }
     });
 }
@@ -73,7 +73,7 @@ Controls.prototype.attachControls = function() {
         if ("duration" === e.target.id) {
             const val = e.target.value;
             if (isNumeric(val)) {
-                this._setDuration(e.target.value);
+                this._setDurationFromSeconds(e.target.value);
             }
             // if (val === 'custom') {
             //     const customValue = 75; // TODO get from number range dialog
@@ -87,7 +87,7 @@ Controls.prototype.attachControls = function() {
             //             return b.value - a.value;
             //         }
             //     });
-            //     this._setDuration(customValue);
+            //     this._setDurationFromSeconds(customValue);
             // }
         }
     });
@@ -97,7 +97,7 @@ Controls.prototype._startAnimation = function () {
     const animate = () => {
         gCurrentTime = performance.now();
         gElapsed = gCurrentTime - gStartTime;
-        const percentage = this._pie.percentage = gElapsed / gDuration;  // percent is 0 - 1
+        const percentage = this._pie.percentage = gElapsed / this._duration;  // percent is 0 - 1
         this._pie.draw();
         if (percentage >= 1) {
             gStartTime = gCurrentTime;
@@ -113,8 +113,8 @@ Controls.prototype._pauseAnimation = function () {
     gAnimationFrameRequest = null;
 }
 
-Controls.prototype._setDuration = function (seconds) {
-    gDuration = seconds * 1000;
+Controls.prototype._setDurationFromSeconds = function (seconds) {
+    this._duration = seconds * 1000;
 }
 
 function isNumeric(n) {
