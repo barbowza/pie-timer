@@ -70,7 +70,8 @@
     import { DurationPicker } from './durationPicker.mjs';
 
     const pie = new Pie('pie-path');
-    const controls = new Controls(pie, 'duration');
+    const durationPicker = new DurationPicker('duration-picker');
+    const controls = new Controls(pie, 'duration', durationPicker);
     pie.draw();
 </script>
 
