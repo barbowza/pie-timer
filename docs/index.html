@@ -55,15 +55,22 @@
         </div>
     </section>
 
+    <div class="modal" id="duration-picker">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+          <h1>PICKER!</h1>
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+      </div>
 </body>
 
 <script type="module">
     import { Pie } from './pie.mjs';
     import { Controls } from './controls.mjs';
+    import { DurationPicker } from './durationPicker.mjs';
 
-    const elSvgPath = document.getElementById('pie-path');
-    const pie = new Pie(elSvgPath);
-    const controls = new Controls(pie, document, 'duration');
+    const pie = new Pie('pie-path');
+    const controls = new Controls(pie, 'duration');
     pie.draw();
 </script>
 

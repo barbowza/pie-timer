@@ -16,10 +16,10 @@ const gOptions = [
     { "value": "custom", "text": "Custom Duration", "last": true },
 ];
 
-export function Controls (pie, document, durationId) {
-    this._pie = pie;
+export function Controls (pie, durationId) {
     this._document = document;
-    this._elDuration = document.getElementById(durationId);
+    this._pie = pie;
+    this._elDuration = this._document.getElementById(durationId);
     this._options = gOptions;
     this._duration = null;
     this._elapsed = 0;
@@ -34,7 +34,7 @@ export function Controls (pie, document, durationId) {
 Controls.prototype.populateDuration = function () {
     this._elDuration.innerHTML = '';      // remove ALL child nodes of <select>
     this._options.forEach(option => {
-        const opt = document.createElement("option");
+        const opt = this._document.createElement("option");
         opt.value = option.value;
         opt.innerHTML = option.text;
         if (option.disabled) {
@@ -91,6 +91,9 @@ Controls.prototype.attachControls = function() {
             //     });
             //     this._setDurationFromSeconds(customValue);
             // }
+            if (val === 'custom') {
+                
+            }
         }
     });
 }
