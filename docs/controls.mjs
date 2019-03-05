@@ -1,5 +1,5 @@
 const gOptions = [
-    { "value": 5, "text": "-- Duration --", "first": true},
+    { "value": 0, "text": "-- Duration --", "first": true, disabled: true},
     { "value": 1, "text": "1 second" },
     { "value": 5, "text": "5 seconds", "default": true },
     { "value": 10, "text": "10 seconds" },
@@ -30,13 +30,16 @@ export function Controls (pie, document, durationId) {
     this.attachControls();
 }
 
-
+// Populate the Duration <select>
 Controls.prototype.populateDuration = function () {
     this._elDuration.innerHTML = '';      // remove ALL child nodes of <select>
     this._options.forEach(option => {
         const opt = document.createElement("option");
         opt.value = option.value;
         opt.innerHTML = option.text;
+        if (option.disabled) {
+            opt.disabled = true;
+        }
         // append it to the <select> element
         this._elDuration.appendChild(opt);
         if (option.default) {
