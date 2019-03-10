@@ -53,17 +53,17 @@ Controls.prototype.populateDuration = function () {
 
 Controls.prototype.attachControls = function() {
     this._document.addEventListener('click', (e) => {
-        const element = e.target.text;
-        if (["Start", "Pause", "Reset"].includes(element)) {
-            if ("Start" === element) {
+        const elementText = e.target.text;
+        if (["Start", "Pause", "Reset"].includes(elementText)) {
+            if ("Start" === elementText) {
                 this._currentTime = performance.now();
                 this._startTime = this._currentTime - this._elapsed;
                 this._startAnimation(this._pie);
                 e.target.text = "Pause";
-            } else if ("Pause" === element) {
+            } else if ("Pause" === elementText) {
                 this._pauseAnimation();
                 e.target.text = "Start";
-            } else if ("Reset" === element) {
+            } else if ("Reset" === elementText) {
                 this._elapsed = 0;
                 this._startTime = this._currentTime = performance.now();
                 this._pie.percentage = 0;
@@ -71,6 +71,15 @@ Controls.prototype.attachControls = function() {
             }
         }
     });
+
+
+    const elStart = getButtonByText('Start');
+    const SPACE_KEYCODE = 32;
+    document.body.onkeyup = function(e) {
+        if(e.keyCode == SPACE_KEYCODE){
+            elStart.click();
+        }
+    }
 
     this._document.addEventListener('change', (e) => {
         if ("duration" === e.target.id) {
@@ -125,4 +134,11 @@ Controls.prototype._setDurationFromSeconds = function (seconds) {
 
 function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+function getButtonByText(text)
+{
+    // https://stackoverflow.com/a/29289196
+    const xpath = `//a[text()='${text}']`;
+    return document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;    
 }
