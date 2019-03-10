@@ -76,7 +76,7 @@ Controls.prototype.attachControls = function() {
         if ("duration" === e.target.id) {
             const val = e.target.value;
             if (isNumeric(val)) {
-                this._setDurationFromSeconds(e.target.value);
+                this._setDurationFromSeconds(val);
             }
             // if (val === 'custom') {
             //     const customValue = 75; // TODO get from number range dialog

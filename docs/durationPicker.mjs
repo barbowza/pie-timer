@@ -6,7 +6,7 @@ export function DurationPicker(modalId) {
         this._elModal.classList.remove('is-active');
     };
 }
-    
+
 DurationPicker.prototype.open = function () {
     this._elModal.classList.add('is-active');
 }
