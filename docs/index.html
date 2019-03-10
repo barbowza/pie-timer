@@ -41,7 +41,7 @@
             <div class="control">
                 <div class="select is-rounded">
                     <select id="duration">
-                        <option value="5">-- Duration --</option>
+                        <option>-- Duration --</option>
                     </select>
                 </div>
             </div>
@@ -55,13 +55,56 @@
         </div>
     </section>
 
-    <div class="modal" id="duration-picker">
-        <div class="modal-background"></div>
+    <div class="modal is-clipped" id="duration-picker">
+        <div class="modal-background has-background-warning"></div>
         <div class="modal-content">
-          <h1>PICKER!</h1>
+            <div class="field is-grouped is-grouped-centered">
+                <span class="control">hours</span>
+                <span class="control"> : </span>
+                <span class="control">minutes</span>
+                <span class="control"> : </span>
+                <span class="control">seconds</span>
+            </div>
+            <div class="field is-grouped is-grouped-centered">
+                <div class="control">
+                    <div class="select">
+                        <select id="hours">
+                            <option value="0">00</option>
+                        </select>
+                    </div>
+                </div>
+    
+                <p class="control">
+                    :
+                </p>
+                <div class="control">
+                    <div class="select">
+                        <select id="minutes">
+                            <option value="0">00</option>
+                        </select>
+                    </div>
+                </div>
+    
+                <p class="control">
+                    :
+                </p>
+                <p class="control">
+                    <div class="control">
+                        <div class="select">
+                            <select id="seconds">
+                                <option value="0">00</option>
+                            </select>
+                        </div>
+                    </div>
+                </p>
+            </div>
+            <br>
+            <br>
+    
         </div>
         <button class="modal-close is-large" aria-label="close"></button>
-      </div>
+    </div>
+
 </body>
 
 <script type="module">
