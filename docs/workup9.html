@@ -1,22 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>workup9</title>
-    <script src="componentDuration.mjs"></script>
-</head>
-<body>
-    <h1>workup9</h1>
-    <duration-select></duration-select>
-</body>
+    <link rel="stylesheet" href="bulma_darkTheme.css" />
 
-<script>
-document.body.onkeyup = function(e){
-    if(e.keyCode == 32){
-        console.log('you pressed space');
-    }
-}
-</script>
+    <script src="componentDuration.mjs"></script>
+  </head>
+  <body>
+    <h1>workup9</h1>
+    <div>
+      <duration-select id="naked-duration"></duration-select>
+      <a class="button">Button</a>
+    </div>
+
+    <div class="modal is-clipped" id="duration-picker">
+      <div class="modal-background has-background-warning"></div>
+      <div class="modal-content">
+        <duration-select id="modal-duration"></duration-select>
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+  </body>
+
+  <script type="module">
+    import { DurationPicker } from "./durationPicker.mjs";
+    const durationPicker = new DurationPicker("duration-picker");
+
+    const buttons = document.getElementsByClassName('button');
+    buttons[0].addEventListener('click', (e) => {
+        durationPicker.open();
+    });
+  </script>
 </html>
