@@ -37,34 +37,31 @@ class ComponentDuration extends HTMLElement {
         this._minutes = 0;
         this._seconds = 0;
         this.populatedTemplate = template.content.cloneNode(true);
-        this.outermost = this.populatedTemplate.getElementById('outermost');
+        this.shadowOutermost = this.populatedTemplate.getElementById('outermost');
         this.shadowHours = this.populatedTemplate.getElementById('hours');
         this.shadowMinutes = this.populatedTemplate.getElementById('minutes');
         this.shadowSeconds = this.populatedTemplate.getElementById('seconds');
         appendOptions(this.shadowHours, 12);
         appendOptions(this.shadowMinutes, 60);
         appendOptions(this.shadowSeconds, 60);
-
-        this.shadowHours.addEventListener('change', (e) => {
+        this.shadowOutermost.addEventListener('change', (e) => {
+            const id = e.target.id;
             const val = e.target.value;
-            this._hours = val;
-            console.log(`hours ${this._hours}`);
+            switch (id) {
+                case 'hours':
+                    this._hours = val;
+                    break;
+                case 'minutes':
+                    this._minutes = val;
+                    break;
+                case 'seconds':
+                    this._seconds = val;
+                    break;
             
-        });
-        this.shadowMinutes.addEventListener('change', (e) => {
-            const val = e.target.value;
-            this._minutes = val;
-            console.log(`minutes ${this._minutes}`);
-            
-        });
-        this.shadowSeconds.addEventListener('change', (e) => {
-            const val = e.target.value;
-            this._seconds = val;
-            console.log(`seconds ${this._seconds}`);
-            
-        });
-        this.outermost.addEventListener('change', (e) => {
-            console.log('I see all');
+                default:
+                    console.error('Unknown change target ', e.target);
+                    break;
+            }
             console.log(`${this._hours} : ${this._minutes} : ${this._seconds}`)
         })
     }
@@ -78,6 +75,7 @@ class ComponentDuration extends HTMLElement {
     }
 }
   
+// Register our Component with the DOM
 const register = () => customElements.define(tagName, ComponentDuration);
 window.WebComponents ? window.WebComponents.waitFor(register) : register();
   
