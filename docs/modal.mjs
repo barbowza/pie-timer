@@ -1,4 +1,4 @@
-export function DurationPicker(modalId) {
+export function Modal(modalId) {
     this._document = document;
     this._elModal = this._document.getElementById(modalId);
     this._elClose = this._elModal.getElementsByClassName('modal-close')[0];
@@ -7,6 +7,6 @@ export function DurationPicker(modalId) {
     };
 }
 
-DurationPicker.prototype.open = function () {
+Modal.prototype.open = function () {
     this._elModal.classList.add('is-active');
 }

@@ -110,11 +110,11 @@
 <script type="module">
     import { Pie } from './pie.mjs';
     import { Controls } from './controls.mjs';
-    import { DurationPicker } from './durationPicker.mjs';
+    import { Modal } from './modal.mjs';
 
     const pie = new Pie('pie-path');
-    const durationPicker = new DurationPicker('duration-picker');
-    const controls = new Controls(pie, 'duration', durationPicker);
+    const modal = new Modal('duration-picker');
+    const controls = new Controls(pie, 'duration', modal);
     pie.draw();
 </script>
 

@@ -16,10 +16,10 @@ const gOptions = [
     { "value": "custom", "text": "Custom Duration", "last": true },
 ];
 
-export function Controls (pie, durationId, durationPicker) {
+export function Controls (pie, durationId, modal) {
     this._document = document;
     this._pie = pie;
-    this._durationPicker = durationPicker;
+    this._modal = modal;
     this._elDuration = this._document.getElementById(durationId);
     this._options = gOptions;
     this._duration = null;
@@ -102,7 +102,7 @@ Controls.prototype.attachControls = function() {
             //     this._setDurationFromSeconds(customValue);
             // }
             if (val === 'custom') {
-                this._durationPicker.open();
+                this._modal.open();
             }
         }
     });

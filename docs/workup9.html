@@ -26,12 +26,12 @@
   </body>
 
   <script type="module">
-    import { DurationPicker } from "./durationPicker.mjs";
-    const durationPicker = new DurationPicker("duration-picker");
+    import { Modal } from "./modal.mjs";
+    const modal = new Modal("duration-picker");
 
     const buttons = document.getElementsByClassName('button');
     buttons[0].addEventListener('click', (e) => {
-        durationPicker.open();
+        modal.open();
     });
   </script>
 </html>
