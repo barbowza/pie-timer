@@ -3,28 +3,46 @@ const tagName = 'duration-select'; // web components MUST have at least one dash
 const template = document.createElement('template');
 template.innerHTML = `
 <style>
+    @import "bulma_darkTheme.css";
 </style>
-<div id="outermost">
-    <div>
-        <select id="hours" aria-label="hours">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-        </select>
-        :
-        <select id="minutes" aria-label="minutes">
-            <option value="0">XX</option>
-        </select>
-        :
-        <select id="seconds" aria-label="seconds">
-            <option value="0">XX</option>
-        </select>
+<div id="outermost" class="container">
+    <div class="field is-grouped is-grouped-centered">
+        <span class="control">hours</span>
+        <span class="control"> : </span>
+        <span class="control">minutes</span>
+        <span class="control"> : </span>
+        <span class="control">seconds</span>
     </div>
-    <div>
-        <button id="ok">OK</button>
+    <div class="field is-grouped is-grouped-centered">
+        <div class="control">
+            <div class="select" aria-label="hours">
+                <select id="hours">
+                    <option value="0">00</option>
+                </select>
+            </div>
+        </div>
+        <p class="control"> : </p>
+        <div class="control">
+            <div class="select" aria-label="minutes">
+                <select id="minutes">
+                    <option value="0">00</option>
+                </select>
+            </div>
+        </div>
+        <p class="control"> : </p>
+        <div class="control">
+            <div class="select">
+                <select id="seconds" aria-label="seconds">
+                    <option value="0">00</option>
+                </select>
+            </div>
+        </div>
     </div>
-</div>
+    <div class="field is-grouped is-grouped-centered">
+        <div>
+            <button id="ok" class="button is-success">OK</button>
+        </div>
+    </div>
 `;
 
 

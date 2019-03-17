@@ -58,49 +58,7 @@
     <div class="modal is-clipped" id="duration-picker">
         <div class="modal-background has-background-warning"></div>
         <div class="modal-content">
-            <div class="field is-grouped is-grouped-centered">
-                <span class="control">hours</span>
-                <span class="control"> : </span>
-                <span class="control">minutes</span>
-                <span class="control"> : </span>
-                <span class="control">seconds</span>
-            </div>
-            <div class="field is-grouped is-grouped-centered">
-                <duration-select></duration-select>
-                <!-- <div class="control">
-                    <div class="select">
-                        <select id="hours">
-                            <option value="0">00</option>
-                        </select>
-                    </div>
-                </div>
-    
-                <p class="control">
-                    :
-                </p>
-                <div class="control">
-                    <div class="select">
-                        <select id="minutes">
-                            <option value="0">00</option>
-                        </select>
-                    </div>
-                </div>
-    
-                <p class="control">
-                    :
-                </p>
-                <p class="control">
-                    <div class="control">
-                        <div class="select">
-                            <select id="seconds">
-                                <option value="0">00</option>
-                            </select>
-                        </div>
-                    </div>
-                </p>
-            </div>
-            <br>
-            <br> -->
+            <duration-select></duration-select>
         </div>
         <button class="modal-close is-large" aria-label="close"></button>
     </div>
@@ -122,6 +80,7 @@
       const customDuration = e.detail.duration;
       console.log("custom duration:", customDuration);
       modalDuration.close();
+      controls.setCustomDuration(customDuration);
     }, false);
 </script>
 
