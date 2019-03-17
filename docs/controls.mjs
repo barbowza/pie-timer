@@ -12,21 +12,26 @@ const gOptions = [
     { "value": 10 * 60, "text": "10 minutes" },
     { "value": 15 * 60, "text": "15 minutes" },
     { "value": 30 * 60, "text": "30 minutes" },
-    { "value": 60 * 60, "text": "60 minutes" },
-    { "value": "custom", "text": "Custom Duration", "last": true },
+    { "value": 60 * 60, "text": "60 minutes" }
 ];
+const gOptionCustom = { "value": "custom", "text": "Custom Duration", "last": true };
 
-export function Controls (pie, durationId, modal) {
+export function Controls (pie, durationSelectId, modalDuration = null) {
     this._document = document;
-    this._pie = pie;
-    this._modal = modal;
-    this._elDuration = this._document.getElementById(durationId);
     this._options = gOptions;
     this._duration = null;
     this._elapsed = 0;
     this._currentTime = null;
     this._startTime = null;
     this._animationFrameRequest = null; // Handle to requestAnimationFrame
+    this._pie = pie;
+    this._elDurationId = durationSelectId;
+    this._elDuration = this._document.getElementById(durationSelectId);
+    if (modalDuration) {
+        this._modalDuration = modalDuration;
+        this._options.push(gOptionCustom);
+    }
+
     this.populateDuration();
     this.attachControls();
 }
@@ -82,7 +87,7 @@ Controls.prototype.attachControls = function() {
     }
 
     this._document.addEventListener('change', (e) => {
-        if ("duration" === e.target.id) {
+        if (this._elDurationId === e.target.id) {
             const val = e.target.value;
             if (isNumeric(val)) {
                 this._setDurationFromSeconds(val);
@@ -102,7 +107,7 @@ Controls.prototype.attachControls = function() {
             //     this._setDurationFromSeconds(customValue);
             // }
             if (val === 'custom') {
-                this._modal.open();
+                this._modalDuration.open();
             }
         }
     });
