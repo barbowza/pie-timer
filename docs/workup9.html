@@ -8,13 +8,19 @@
     <link rel="stylesheet" href="bulma_darkTheme.css" />
 
     <script src="componentDuration.mjs"></script>
+
   </head>
   <body>
     <h1>workup9</h1>
-    <div>
-      <duration-select id="naked-duration"></duration-select>
-      <a class="button">Button</a>
-    </div>
+    <section class="section">
+      <div class="container">
+        <duration-select id="naked-duration"></duration-select>
+      </div>
+      <br>
+      <div class="container">
+        <a class="button open-duration">Button</a>
+      </div>
+    </section>
 
     <div class="modal is-clipped" id="duration-picker">
       <div class="modal-background has-background-warning"></div>
@@ -28,10 +34,7 @@
   <script type="module">
     import { Modal } from "./modal.mjs";
     const modal = new Modal("duration-picker");
-
-    const buttons = document.getElementsByClassName('button');
-    buttons[0].addEventListener('click', (e) => {
-        modal.open();
-    });
+    const openerElements = document.getElementsByClassName('open-duration');
+    modal.addOpeners(openerElements);
   </script>
 </html>

@@ -1,25 +1,24 @@
 const tagName = 'duration-select'; // web components MUST have at least one dash in their tag name
 
 const template = document.createElement('template');
-
 template.innerHTML = `
 <style>
 </style>
 <span id="outermost">
-<select id="hours" aria-label="hours">
-<option value="0">0</option>
-<option value="1">1</option>
-<option value="2">2</option>
-<option value="3">3</option>
-</select>
-:
-<select id="minutes" aria-label="minutes">
-    <option value="0">XX</option>
-</select>
-:
-<select id="seconds" aria-label="seconds">
-    <option value="0">XX</option>
-</select>
+    <select id="hours" aria-label="hours">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+    </select>
+    :
+    <select id="minutes" aria-label="minutes">
+        <option value="0">XX</option>
+    </select>
+    :
+    <select id="seconds" aria-label="seconds">
+        <option value="0">XX</option>
+    </select>
 </span>`;
 
 class ComponentDuration extends HTMLElement {
