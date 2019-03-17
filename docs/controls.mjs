@@ -15,8 +15,10 @@ const gOptions = [
     { "value": 60 * 60, "text": "60 minutes" }
 ];
 const gOptionCustom = { "value": "custom", "text": "Custom Duration", "last": true };
+const MAX_DURATION = 12 * 60*60 - 1;
 
 export function Controls (pie, durationSelectId, modalDuration = null) {
+    this._debug = 0;
     this._document = document;
     this._options = gOptions;
     this._duration = null;
@@ -32,12 +34,44 @@ export function Controls (pie, durationSelectId, modalDuration = null) {
         this._options.push(gOptionCustom);
     }
 
-    this.populateDuration();
-    this.attachControls();
+    this._populateDuration();
+    this._attachControls();
 }
 
+Controls.prototype.SetCustomDuration = function (customDuration) {
+    if (isNumeric(customDuration) && customDuration > 0 && customDuration <= MAX_DURATION) {
+        const exists = this._options.find((o) => {
+            return o.value === customDuration;
+        });
+        if (exists) {
+            this._setDurationSelectToOptionByValue(exists.value);
+            this._setDurationFromSeconds(exists.value);
+        } else {
+            const h = Math.floor(customDuration / (60 * 60));
+            const m = Math.floor((customDuration - (h * (60 * 60))) / 60);
+            const s = customDuration % 60;
+            const text = (h ? `${h} hours ` : '') + (m ? `${m} minutes ` : '') + (s ? `${s} seconds` : '');
+            this._options.push({ "value": customDuration, "text": text });
+            this._options.sort((a, b) => {
+                if (a.first || b.last) {
+                    return -1;
+                } else if (a.last || b.first) {
+                    return 1;
+                } else {
+                    return a.value - b.value;
+                }
+            });
+            this._populateDuration();
+            this._setDurationSelectToOptionByValue(customDuration);
+            this._setDurationFromSeconds(customDuration);
+        }
+        this._debug && console.log(`${customDuration} exists: ${!!exists}`);
+    }
+}
+
+
 // Populate the Duration <select>
-Controls.prototype.populateDuration = function () {
+Controls.prototype._populateDuration = function () {
     this._elDuration.innerHTML = '';      // remove ALL child nodes of <select>
     this._options.forEach(option => {
         const opt = this._document.createElement("option");
@@ -48,15 +82,21 @@ Controls.prototype.populateDuration = function () {
         }
         // append it to the <select> element
         this._elDuration.appendChild(opt);
+        // Set <select> to the (last) option flagged default
         if (option.default) {
-            this._elDuration.value = option.value;
+            this._setDurationSelectToOptionByValue(option.value);
             this._setDurationFromSeconds(option.value);
         }
     });
 }
 
+Controls.prototype._setDurationSelectToOptionByValue = function (value) {
+    if (this._options.find(o => o.value === value)) {
+        this._elDuration.value = value;
+    }
+}
 
-Controls.prototype.attachControls = function() {
+Controls.prototype._attachControls = function() {
     this._document.addEventListener('click', (e) => {
         const elementText = e.target.text;
         if (["Start", "Pause", "Reset"].includes(elementText)) {

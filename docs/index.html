@@ -78,9 +78,8 @@
 
     document.addEventListener(ComponentDuration.successEventName, (e) => {
       const customDuration = e.detail.duration;
-      console.log("custom duration:", customDuration);
       modalDuration.close();
-      controls.setCustomDuration(customDuration);
+      controls.SetCustomDuration(customDuration);
     }, false);
 </script>
 
