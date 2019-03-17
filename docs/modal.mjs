@@ -1,9 +1,11 @@
 export function Modal(modalId) {
     this._elModal = document.getElementById(modalId);
-    this._elClose = this._elModal.getElementsByClassName('modal-close')[0];
-    this._elClose.onclick = (e) => {
-        this._elModal.close();
-    };
+    const closers = this._elModal.getElementsByClassName('modal-close');
+    for (let i = 0; i < closers.length; ++i) {
+        closers[i].addEventListener('click', (e) => {
+            this.close();
+        }, false);
+    }    
 }
 
 // Call with list of elements which raise click events that should open the modal
