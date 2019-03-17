@@ -7,7 +7,6 @@
     <title>workup9</title>
     <link rel="stylesheet" href="bulma_darkTheme.css" />
 
-    <script src="componentDuration.mjs"></script>
 
   </head>
   <body>
@@ -31,10 +30,17 @@
     </div>
   </body>
 
+  <script src="componentDuration.mjs"></script>
+
   <script type="module">
     import { Modal } from "./modal.mjs";
     const modal = new Modal("duration-picker");
     const openerElements = document.getElementsByClassName('open-duration');
     modal.addOpeners(openerElements);
+    document.addEventListener(ComponentDuration.successEventName, (e) => {
+      const customDuration = e.detail.duration;
+      console.log("custom duration:", customDuration);
+      modal.close();
+    }, false);
   </script>
 </html>
