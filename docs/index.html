@@ -25,15 +25,20 @@
     </section>
 
     <section class="section">
-        <!-- Pie -->
+        <!-- Main -->
         <div class="container">
-            <div class="columns is-centered is-mobile">
-                <div class="column is-two-fifths has-text-centered">
+            <div class="columns is-mobile is-centered" id="main-columns">
+                <!-- Pie Column -->
+                <div class="column is-5 has-text-centered">
                     <svg viewBox="-1 -1 2 2" style="transform: rotate(-90deg)" preserveAspectRatio="xMidYMid">
-                        <path id="pie-path" d="M 1 0 A 1 1 0 0 1 1 0 L 0 0" 
-                            fill="Coral" stroke="transparent" stroke-opacity="0"></path>
+                        <path id="pie-path" d="M 1 0 A 1 1 0 0 1 1 0 L 0 0" fill="Coral" stroke="transparent"
+                            stroke-opacity="0"></path>
                     </svg>
                 </div>
+                <!-- Info Column -->
+                <!-- <div class="column is-5 is-offset-1">
+                    <div class="is-pulled-right">burg</div>
+                </div> -->
             </div>
         </div>
 
@@ -72,6 +77,48 @@
         <button class="modal-close is-large" aria-label="close"></button>
     </div>
 
+    <template id="info-template">
+            <div class="column is-two-fifths has-text-centered">
+                    <nav class="panel">
+                        <p class="panel-heading">
+                            Info
+                        </p>
+                        <a class="panel-block is-active">
+                            <span class="panel-icon">
+                                <i class="fas fa-book" aria-hidden="true"></i>
+                            </span>
+                            bulma
+                        </a>
+                        <a class="panel-block">
+                            <span class="panel-icon">
+                                <i class="fas fa-book" aria-hidden="true"></i>
+                            </span>
+                            marksheet
+                        </a>
+                        <a class="panel-block">
+                            <span class="panel-icon">
+                                <i class="fas fa-book" aria-hidden="true"></i>
+                            </span>
+                            minireset.css
+                        </a>
+                        <a class="panel-block">
+                            <span class="panel-icon">
+                                <i class="fas fa-book" aria-hidden="true"></i>
+                            </span>
+                            jgthms.github.io
+                        </a>
+                        <label class="panel-block">
+                            <input type="checkbox">
+                            remember me
+                        </label>
+                        <div class="panel-block">
+                            <button class="button is-link is-outlined is-fullwidth">
+                                reset all filters
+                            </button>
+                        </div>
+                    </nav>
+                </div>
+    </template>   
 </body>
 <script src="componentDuration.mjs"></script>
 
@@ -79,6 +126,7 @@
     import { Pie } from './pie.mjs';
     import { Controls } from './controls.mjs';
     import { Modal } from './modal.mjs';
+    import { Info } from './info.mjs';
 
     const pie = new Pie('pie-path');
     const modalDuration = new Modal('duration-picker');
@@ -90,6 +138,8 @@
       modalDuration.close();
       controls.SetCustomDuration(customDuration);
     }, false);
+
+    const info = new Info('info-template', 'main-columns');
 </script>
 
 </html>
