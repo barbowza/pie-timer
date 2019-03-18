@@ -14,47 +14,54 @@
   ></script>
 </head>
 <body>
-
-    <section class="hero is-info is-bold is-small">
+    <!-- Title -->
+    <section class="hero">
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">Pie Timer</h1>
-                <h2 class="subtitle">Responsive Layout</h2>
+                <h2 class="subtitle">Practice Like You Mean It!</h2>
             </div>
         </div>
     </section>
 
-    <section class="section has-background-dark">
+    <section class="section">
+        <!-- Pie -->
         <div class="container">
             <div class="columns is-centered is-mobile">
                 <div class="column is-two-fifths has-text-centered">
                     <svg viewBox="-1 -1 2 2" style="transform: rotate(-90deg)" preserveAspectRatio="xMidYMid">
-                        <path id="pie-path" d="M 1 0 A 1 1 0 0 1 1 0 L 0 0" fill="Coral" stroke="transparent" stroke-opacity="0"></path>
+                        <path id="pie-path" d="M 1 0 A 1 1 0 0 1 1 0 L 0 0" 
+                            fill="Coral" stroke="transparent" stroke-opacity="0"></path>
                     </svg>
                 </div>
             </div>
         </div>
-    </section>
 
-    <section class="section has-background-grey-dark">
-        <div class="field is-grouped is-grouped-centered">
-            <div class="control">
-                <div class="select is-rounded">
-                    <select id="durationSelect">
-                        <option>-- Duration --</option>
-                    </select>
+        <!-- Vertical Space -->
+        <div class="container"><br></div>
+
+        <!-- Basic Controls -->
+        <div class="container">
+            <div class="field is-grouped is-grouped-centered">
+                <div class="control">
+                    <div class="select is-rounded">
+                        <select id="durationSelect">
+                            <option>-- Duration --</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-    
-            <p class="control">
+
+                <p class="control">
                     <a class="button is-success">Start</a>
-            </p>
-            <p class="control">
+                </p>
+                <p class="control">
                     <a class="button is-success">Reset</a>
-            </p>
+                </p>
+            </div>
         </div>
     </section>
 
+    <!-- Duration Picker Modal -->
     <div class="modal is-clipped" id="duration-picker">
         <div class="modal-background has-background-warning"></div>
         <div class="modal-content">
