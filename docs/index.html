@@ -63,16 +63,6 @@
                 </p>
             </div>
         </div>
-
-        <!-- Experiment  -->
-        <div>
-            <button class="add button is-success">
-              Add column
-            </button>
-            <button class="remove button is-danger">
-              Remove column
-            </button>
-          </div>
     </section>
 
     <!-- Duration Picker Modal -->
@@ -87,33 +77,37 @@
     <!-- Template Open Info Column -->
     <template id="open-info-template">
         <div class="column is-one-fifth has-text-centered has-background-warning">
-            <span class="icon is-medium has-text-info open-info">
-                <i class="fas fa-info-circle fa-2x"></i>
+                <span class="icon is-medium has-text-info is-pulled-right action-open-info">
+                    <i class="fa fa-info-circle fa-2x"></i>
+                </span>
+        </div>
+    </template>
+
+    <!-- Template Info Panel -->
+    <template id="info-template">
+        <div class="column is-two-fifths has-text-centered has-background-warning">
+            <!-- Timer Info -->
+            <table class="table is-fullwidth">
+                <tbody>
+                    <tr>
+                        <td>Loop</td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td>Time</td>
+                        <td>00:31</td>
+                    </tr>
+                    <tr>
+                        <td>Total</td>
+                        <td>05:31</td>
+                    </tr>
+                </tbody>
+            </table>
+            <span class="icon is-medium has-text-info is-pulled-right action-close-info">
+                <i class="fa fa-times-circle fa-2x"></i>
             </span>
         </div>
     </template>
-    <!-- Template Info Panel -->
-    <template id="info-template">
-            <div class="column is-two-fifths has-text-centered has-background-warning">
-                <!-- Timer Info -->
-                <table class="table is-fullwidth">
-                    <tbody>
-                        <tr>
-                            <td>Loop</td>
-                            <td>5</td>
-                        </tr>
-                        <tr>
-                            <td>Time</td>
-                            <td>00:31</td>
-                        </tr>
-                        <tr>
-                            <td>Total</td>
-                            <td>05:31</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-    </template>   
 
 </body>
 <script src="componentDuration.mjs"></script>
@@ -138,29 +132,37 @@
     const info = new Info('info-template', 'main-columns');
 
 
-
+    const idActionOpen = '.action-open-info';
+    const idActionClose = '.action-close-info'
     const elColumns = document.querySelector('#main-columns');
-    const t = document.querySelector('#open-info-template');
-    const clone = document.importNode(t.content, true);
-    elColumns.appendChild(clone);
+    const elTemplateOpenInfo = document.querySelector('#open-info-template');
+    const elTemplateInfo = document.querySelector('#info-template');
 
-    const elAdd = document.querySelector('.add');
-    elAdd.addEventListener('click', (e) => {
-        elColumns.removeChild(elColumns.lastElementChild);
-        const t = document.querySelector('#info-template');
-        const clone = document.importNode(t.content, true);
-        elColumns.appendChild(clone);
-        elColumns.firstElementChild.classList.remove('is-offset-one-fifth');
+    elColumns.addEventListener('click', (e) => {
+        console.log(e.target);
+        if (nodeIsChild(e.target, idActionOpen)) {
+            elColumns.removeChild(elColumns.lastElementChild);
+            elColumns.appendChild(document.importNode(elTemplateInfo.content, true));
+            elColumns.firstElementChild.classList.remove('is-offset-one-fifth');
+        }
+        else if (nodeIsChild(e.target, idActionClose)) {
+            elColumns.removeChild(elColumns.lastElementChild);
+            elColumns.appendChild(document.importNode(elTemplateOpenInfo.content, true));
+            elColumns.firstElementChild.classList.add('is-offset-one-fifth');
+        }
     });
-    const elRemove = document.querySelector('.remove');
-    elRemove.addEventListener('click', (e) => {
-        elColumns.removeChild(elColumns.lastElementChild);
-        const t = document.querySelector('#open-info-template');
-        const clone = document.importNode(t.content, true);
-        elColumns.appendChild(clone);
-        elColumns.firstElementChild.classList.add('is-offset-one-fifth');
-    });
+    elColumns.appendChild(document.importNode(elTemplateOpenInfo.content, true));
 
+
+    function nodeIsChild (obj, parentSelector) {
+        while (obj !== undefined && obj !== null && obj.tagName.toUpperCase() != 'BODY') {
+            if (obj.matches(parentSelector)){
+                return true;
+            }
+            obj = obj.parentNode;
+        }
+        return false;
+    }
 </script>
 
 </html>
