@@ -35,9 +35,7 @@
                             stroke-opacity="0"></path>
                     </svg>
                 </div>
-                <!-- Info Column (dynamically inserted) -->
-            <div class="column is-one-fifth has-text-centered has-background-warning">
-            </div>
+                <!-- Info Column and Open Info Column (dynamically inserted) -->
             </div>
         </div>
 
@@ -86,9 +84,18 @@
         <button class="modal-close is-large" aria-label="close"></button>
     </div>
 
+    <!-- Template Open Info Column -->
+    <template id="open-info-template">
+        <div class="column is-one-fifth has-text-centered has-background-warning">
+            <span class="icon is-medium has-text-info open-info">
+                <i class="fas fa-info-circle fa-2x"></i>
+            </span>
+        </div>
+    </template>
     <!-- Template Info Panel -->
     <template id="info-template">
             <div class="column is-two-fifths has-text-centered has-background-warning">
+                <!-- Timer Info -->
                 <table class="table is-fullwidth">
                     <tbody>
                         <tr>
@@ -130,25 +137,28 @@
 
     const info = new Info('info-template', 'main-columns');
 
+
+
     const elColumns = document.querySelector('#main-columns');
+    const t = document.querySelector('#open-info-template');
+    const clone = document.importNode(t.content, true);
+    elColumns.appendChild(clone);
+
     const elAdd = document.querySelector('.add');
     elAdd.addEventListener('click', (e) => {
-        console.log('add');
-        console.log(elColumns.children);
-        if (elColumns.children.length === 1) {
-            const t = document.querySelector('#info-template');
-            const clone = document.importNode(t.content, true);
-            elColumns.appendChild(clone);
-            elColumns.firstElementChild.classList.remove('is-offset-one-fifth');
-        }
+        elColumns.removeChild(elColumns.lastElementChild);
+        const t = document.querySelector('#info-template');
+        const clone = document.importNode(t.content, true);
+        elColumns.appendChild(clone);
+        elColumns.firstElementChild.classList.remove('is-offset-one-fifth');
     });
     const elRemove = document.querySelector('.remove');
     elRemove.addEventListener('click', (e) => {
-        console.log('remove');
-        if (elColumns.children.length === 2) {
-            elColumns.removeChild(elColumns.lastElementChild);
-            elColumns.firstElementChild.classList.add('is-offset-one-fifth');
-        }
+        elColumns.removeChild(elColumns.lastElementChild);
+        const t = document.querySelector('#open-info-template');
+        const clone = document.importNode(t.content, true);
+        elColumns.appendChild(clone);
+        elColumns.firstElementChild.classList.add('is-offset-one-fifth');
     });
 
 </script>
