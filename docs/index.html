@@ -27,15 +27,17 @@
     <section class="section">
         <!-- Main -->
         <div class="container">
-            <div class="columns is-mobile is-centered" id="main-columns">
+            <div class="columns is-mobile has-background-grey-light" id="main-columns">
                 <!-- Pie Column -->
-                <div class="column is-two-fifths has-text-centered has-background-primary">
+                <div class="column is-three-fifths is-offset-one-fifth has-text-centered has-background-primary">
                     <svg viewBox="-1 -1 2 2" style="transform: rotate(-90deg)" preserveAspectRatio="xMidYMid">
                         <path id="pie-path" d="M 1 0 A 1 1 0 0 1 1 0 L 0 0" fill="Coral" stroke="transparent"
                             stroke-opacity="0"></path>
                     </svg>
                 </div>
                 <!-- Info Column (dynamically inserted) -->
+            <div class="column is-one-fifth has-text-centered has-background-warning">
+            </div>
             </div>
         </div>
 
@@ -137,6 +139,7 @@
             const t = document.querySelector('#info-template');
             const clone = document.importNode(t.content, true);
             elColumns.appendChild(clone);
+            elColumns.firstElementChild.classList.remove('is-offset-one-fifth');
         }
     });
     const elRemove = document.querySelector('.remove');
@@ -144,6 +147,7 @@
         console.log('remove');
         if (elColumns.children.length === 2) {
             elColumns.removeChild(elColumns.lastElementChild);
+            elColumns.firstElementChild.classList.add('is-offset-one-fifth');
         }
     });
 
