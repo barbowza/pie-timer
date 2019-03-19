@@ -84,55 +84,28 @@
         <button class="modal-close is-large" aria-label="close"></button>
     </div>
 
+    <!-- Template Info Panel -->
     <template id="info-template">
-            <div class="column is-two-fifths has-text-centered">
-                    <nav class="panel">
-                        <p class="panel-heading">
-                            Info
-                        </p>
-                        <a class="panel-block is-active">
-                            <span class="panel-icon">
-                                <i class="fas fa-book" aria-hidden="true"></i>
-                            </span>
-                            bulma
-                        </a>
-                        <a class="panel-block">
-                            <span class="panel-icon">
-                                <i class="fas fa-book" aria-hidden="true"></i>
-                            </span>
-                            marksheet
-                        </a>
-                        <a class="panel-block">
-                            <span class="panel-icon">
-                                <i class="fas fa-book" aria-hidden="true"></i>
-                            </span>
-                            minireset.css
-                        </a>
-                        <a class="panel-block">
-                            <span class="panel-icon">
-                                <i class="fas fa-book" aria-hidden="true"></i>
-                            </span>
-                            jgthms.github.io
-                        </a>
-                        <label class="panel-block">
-                            <input type="checkbox">
-                            remember me
-                        </label>
-                        <div class="panel-block">
-                            <button class="button is-link is-outlined is-fullwidth">
-                                reset all filters
-                            </button>
-                        </div>
-                    </nav>
-                </div>
+            <div class="column is-two-fifths has-text-centered has-background-warning">
+                <table class="table is-fullwidth">
+                    <tbody>
+                        <tr>
+                            <td>Loop</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>Time</td>
+                            <td>00:31</td>
+                        </tr>
+                        <tr>
+                            <td>Total</td>
+                            <td>05:31</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
     </template>   
 
-    <!-- Template Info Panel -->
-    <template id="column-2-template">
-        <div class="column is-two-fifths is-offset-1 has-background-warning">
-            <div class="is-pulled-right">burg</div>
-        </div>
-    </template>
 </body>
 <script src="componentDuration.mjs"></script>
 
@@ -161,7 +134,7 @@
         console.log('add');
         console.log(elColumns.children);
         if (elColumns.children.length === 1) {
-            const t = document.querySelector('#column-2-template');
+            const t = document.querySelector('#info-template');
             const clone = document.importNode(t.content, true);
             elColumns.appendChild(clone);
         }
