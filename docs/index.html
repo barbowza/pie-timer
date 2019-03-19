@@ -29,16 +29,13 @@
         <div class="container">
             <div class="columns is-mobile is-centered" id="main-columns">
                 <!-- Pie Column -->
-                <div class="column is-5 has-text-centered">
+                <div class="column is-two-fifths has-text-centered has-background-primary">
                     <svg viewBox="-1 -1 2 2" style="transform: rotate(-90deg)" preserveAspectRatio="xMidYMid">
                         <path id="pie-path" d="M 1 0 A 1 1 0 0 1 1 0 L 0 0" fill="Coral" stroke="transparent"
                             stroke-opacity="0"></path>
                     </svg>
                 </div>
-                <!-- Info Column -->
-                <!-- <div class="column is-5 is-offset-1">
-                    <div class="is-pulled-right">burg</div>
-                </div> -->
+                <!-- Info Column (dynamically inserted) -->
             </div>
         </div>
 
@@ -66,6 +63,16 @@
                 </p>
             </div>
         </div>
+
+        <!-- Experiment  -->
+        <div>
+            <button class="add button is-success">
+              Add column
+            </button>
+            <button class="remove button is-danger">
+              Remove column
+            </button>
+          </div>
     </section>
 
     <!-- Duration Picker Modal -->
@@ -119,6 +126,13 @@
                     </nav>
                 </div>
     </template>   
+
+    <!-- Template Info Panel -->
+    <template id="column-2-template">
+        <div class="column is-two-fifths is-offset-1 has-background-warning">
+            <div class="is-pulled-right">burg</div>
+        </div>
+    </template>
 </body>
 <script src="componentDuration.mjs"></script>
 
@@ -140,6 +154,26 @@
     }, false);
 
     const info = new Info('info-template', 'main-columns');
+
+    const elColumns = document.querySelector('#main-columns');
+    const elAdd = document.querySelector('.add');
+    elAdd.addEventListener('click', (e) => {
+        console.log('add');
+        console.log(elColumns.children);
+        if (elColumns.children.length === 1) {
+            const t = document.querySelector('#column-2-template');
+            const clone = document.importNode(t.content, true);
+            elColumns.appendChild(clone);
+        }
+    });
+    const elRemove = document.querySelector('.remove');
+    elRemove.addEventListener('click', (e) => {
+        console.log('remove');
+        if (elColumns.children.length === 2) {
+            elColumns.removeChild(elColumns.lastElementChild);
+        }
+    });
+
 </script>
 
 </html>
