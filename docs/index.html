@@ -27,9 +27,9 @@
     <section class="section">
         <!-- Main -->
         <div class="container">
-            <div class="columns is-mobile has-background-grey-light" id="main-columns">
+            <div class="columns is-mobile" id="main-columns">
                 <!-- Pie Column -->
-                <div class="column is-three-fifths is-offset-one-fifth has-text-centered has-background-primary">
+                <div class="column is-three-fifths is-offset-one-fifth has-text-centered">
                     <svg viewBox="-1 -1 2 2" style="transform: rotate(-90deg)" preserveAspectRatio="xMidYMid">
                         <path id="pie-path" d="M 1 0 A 1 1 0 0 1 1 0 L 0 0" fill="Coral" stroke="transparent"
                             stroke-opacity="0"></path>
@@ -67,7 +67,7 @@
 
     <!-- Duration Picker Modal -->
     <div class="modal is-clipped" id="duration-picker">
-        <div class="modal-background has-background-warning"></div>
+        <div class="modal-background has-background-primary"></div>
         <div class="modal-content">
             <duration-select></duration-select>
         </div>
@@ -76,7 +76,7 @@
 
     <!-- Template Open Info Column -->
     <template id="open-info-template">
-        <div class="column is-one-fifth has-text-centered has-background-warning">
+        <div class="column is-one-fifth has-text-centered">
                 <span class="icon is-medium has-text-info is-pulled-right action-open-info">
                     <i class="fa fa-info-circle fa-2x"></i>
                 </span>
@@ -85,7 +85,7 @@
 
     <!-- Template Info Panel -->
     <template id="info-template">
-        <div class="column is-two-fifths has-text-centered has-background-warning">
+        <div class="column is-two-fifths has-text-centered">
             <!-- Timer Info -->
             <table class="table is-fullwidth">
                 <tbody>
@@ -116,19 +116,20 @@
     import { Pie } from './pie.mjs';
     import { Controls } from './controls.mjs';
     import { Modal } from './modal.mjs';
-    import { Info } from './info.mjs';
 
     const pie = new Pie('pie-path');
     const modalDuration = new Modal('duration-picker');
     const controls = new Controls(pie, 'durationSelect', modalDuration);
     pie.draw();
 
+    // On success of Duration Modal close modal and update controls with result
     document.addEventListener(ComponentDuration.successEventName, (e) => {
       const customDuration = e.detail.duration;
       modalDuration.close();
       controls.SetCustomDuration(customDuration);
     }, false);
 
+    // Handle the open and close of Info Panel
     const idActionOpen = '.action-open-info';
     const idActionClose = '.action-close-info'
     const elColumns = document.querySelector('#main-columns');
@@ -136,7 +137,6 @@
     const elTemplateInfo = document.querySelector('#info-template');
 
     elColumns.addEventListener('click', (e) => {
-        console.log(e.target);
         if (nodeIsChild(e.target, idActionOpen)) {
             elColumns.removeChild(elColumns.lastElementChild);
             elColumns.appendChild(document.importNode(elTemplateInfo.content, true));
@@ -149,7 +149,6 @@
         }
     });
     elColumns.appendChild(document.importNode(elTemplateOpenInfo.content, true));
-
 
     function nodeIsChild (obj, parentSelector) {
         while (obj !== undefined && obj !== null && obj.tagName.toUpperCase() != 'BODY') {
