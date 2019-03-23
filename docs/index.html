@@ -118,7 +118,8 @@
     import { Modal } from './modal.mjs';
 
     const pie = new Pie('pie-path');
-    const modalDuration = new Modal('duration-picker');
+    const elModalDuration = document.getElementById('duration-picker');
+    const modalDuration = new Modal(elModalDuration);
     const controls = new Controls(document, pie, 'durationSelect', modalDuration);
     pie.draw();
 

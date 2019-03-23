@@ -1,5 +1,5 @@
-export function Modal(modalId) {
-    this._elModal = document.getElementById(modalId);
+export function Modal(elModal) {
+    this._elModal = elModal;
     const closers = this._elModal.getElementsByClassName('modal-close');
     for (let i = 0; i < closers.length; ++i) {
         closers[i].addEventListener('click', (e) => {
