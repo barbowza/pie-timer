@@ -130,7 +130,7 @@ Controls.prototype._attachControls = function() {
     }
 
     this._document.addEventListener('change', (e) => {
-        if (this._elDurationId === e.target.id) {
+        if (this._elSelectDuration === e.target) {
             const val = e.target.value;
             if (isNumeric(val)) {
                 this._setDurationFromSeconds(val);
