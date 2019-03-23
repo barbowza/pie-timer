@@ -181,7 +181,7 @@ Controls.prototype._getButtonByText = function (text)
 {
     // https://stackoverflow.com/a/29289196
     const xpath = `//a[text()='${text}']`;
-    return this._document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;    
+    return this._document.evaluate(xpath, this._document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;    
 }
 
 
