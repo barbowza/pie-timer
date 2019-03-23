@@ -23,10 +23,10 @@ export function Controls (document, pie, timer, elSelectDuration, modalDuration 
     this._document = document;
     this._options = gOptions;
 
-    this._duration = null;
-    this._elapsed = 0;
-    this._currentTime = null;
-    this._startTime = null;
+    this._duration = null;  //##
+    this._elapsed = 0;  //##
+    this._currentTime = null;   //##
+    this._startTime = null; //##
 
     this._animationFrameRequest = null; // Handle to requestAnimationFrame
     this._pie = pie;
@@ -103,16 +103,18 @@ Controls.prototype._attachControls = function() {
         const elementText = e.target.text;
         if (["Start", "Pause", "Reset"].includes(elementText)) {
             if ("Start" === elementText) {
-                this._currentTime = performance.now();
-                this._startTime = this._currentTime - this._elapsed;
+                this._currentTime = performance.now(); //##
+                this._startTime = this._currentTime - this._elapsed; //##
+                this._timer.start();
                 this._startAnimation(this._pie);
                 e.target.text = "Pause";
             } else if ("Pause" === elementText) {
                 this._pauseAnimation();
                 e.target.text = "Start";
             } else if ("Reset" === elementText) {
-                this._elapsed = 0;
-                this._startTime = this._currentTime = performance.now();
+                this._elapsed = 0;  //##
+                this._startTime = this._currentTime = performance.now(); //##
+                this._timer.reset();
                 this._pie.percentage = 0;
                 this._pie.draw();
             }
@@ -156,12 +158,15 @@ Controls.prototype._attachControls = function() {
 
 Controls.prototype._startAnimation = function () {
     const animate = () => {
-        this._currentTime = performance.now();
-        this._elapsed = this._currentTime - this._startTime;
-        const percentage = this._pie.percentage = this._elapsed / this._duration;  // percent is 0 - 1
+        this._currentTime = performance.now(); //##
+        this._elapsed = this._currentTime - this._startTime; //##
+        this._timer.tick();
+        //## const percentage = this._pie.percentage = this._timer.percentElapsed;
+        const percentage = this._pie.percentage = this._elapsed / this._duration;  //## percent is 0 - 1
         this._pie.draw();
         if (percentage >= 1) {
-            this._startTime = this._currentTime;
+            this._startTime = this._currentTime;    //##
+            this._timer.lap();
         }
         this._animationFrameRequest = requestAnimationFrame(animate);
     };
@@ -175,7 +180,8 @@ Controls.prototype._pauseAnimation = function () {
 }
 
 Controls.prototype._setDurationFromSeconds = function (seconds) {
-    this._duration = seconds * 1000;
+    this._duration = seconds * 1000; //##
+    this._timer.duration = seconds;
 }
 
 Controls.prototype._getButtonByText = function (text)
