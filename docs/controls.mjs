@@ -17,7 +17,7 @@ const gOptions = [
 const gOptionCustom = { "value": "custom", "text": "Custom Duration", "last": true };
 const MAX_DURATION = 12 * 60*60 - 1;
 
-export function Controls (document, pie, durationSelectId, modalDuration = null) {
+export function Controls (document, pie, elSelectDuration, modalDuration = null) {
     this._debug = 0;
     this._document = document;
     this._options = gOptions;
@@ -27,8 +27,7 @@ export function Controls (document, pie, durationSelectId, modalDuration = null)
     this._startTime = null;
     this._animationFrameRequest = null; // Handle to requestAnimationFrame
     this._pie = pie;
-    this._elDurationId = durationSelectId;
-    this._elDuration = this._document.getElementById(durationSelectId);
+    this._elSelectDuration = elSelectDuration;
     if (modalDuration) {
         // when we have a custom duration control add an option to activate it
         this._modalDuration = modalDuration;
@@ -73,7 +72,7 @@ Controls.prototype.SetCustomDuration = function (customDuration) {
 
 // Populate the Duration <select>
 Controls.prototype._populateDuration = function () {
-    this._elDuration.innerHTML = '';      // remove ALL child nodes of <select>
+    this._elSelectDuration.innerHTML = '';      // remove ALL child nodes of <select>
     this._options.forEach(option => {
         const opt = this._document.createElement("option");
         opt.value = option.value;
@@ -82,7 +81,7 @@ Controls.prototype._populateDuration = function () {
             opt.disabled = true;
         }
         // append it to the <select> element
-        this._elDuration.appendChild(opt);
+        this._elSelectDuration.appendChild(opt);
         // Set <select> to the (last) option flagged default
         if (option.default) {
             this._setDurationSelectToOptionByValue(option.value);
@@ -93,7 +92,7 @@ Controls.prototype._populateDuration = function () {
 
 Controls.prototype._setDurationSelectToOptionByValue = function (value) {
     if (this._options.find(o => o.value === value)) {
-        this._elDuration.value = value;
+        this._elSelectDuration.value = value;
     }
 }
 
