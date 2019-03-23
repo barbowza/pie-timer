@@ -116,13 +116,15 @@
     import { Pie } from './pie.mjs';
     import { Controls } from './controls.mjs';
     import { Modal } from './modal.mjs';
+    import { Timer } from './timer.mjs';
 
     const elPiePath = document.querySelector('#main-pie-path');
     const pie = new Pie(elPiePath);
     const elModalDuration = document.querySelector('#duration-picker');
     const modalDuration = new Modal(elModalDuration);
     const elSelectDuration = document.querySelector('#durationSelect');
-    const controls = new Controls(document, pie, elSelectDuration, modalDuration);
+    const timer = new Timer();
+    const controls = new Controls(document, pie, timer, elSelectDuration, modalDuration);
     pie.draw();
 
     // On success of Duration Modal close modal and update controls with result

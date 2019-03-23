@@ -17,16 +17,19 @@ const gOptions = [
 const gOptionCustom = { "value": "custom", "text": "Custom Duration", "last": true };
 const MAX_DURATION = 12 * 60*60 - 1;
 
-export function Controls (document, pie, elSelectDuration, modalDuration = null) {
+export function Controls (document, pie, timer, elSelectDuration, modalDuration = null) {
     this._debug = 0;
     this._document = document;
     this._options = gOptions;
+
     this._duration = null;
     this._elapsed = 0;
     this._currentTime = null;
     this._startTime = null;
+
     this._animationFrameRequest = null; // Handle to requestAnimationFrame
     this._pie = pie;
+    this._timer = timer;
     this._elSelectDuration = elSelectDuration;
     if (modalDuration) {
         // when we have a custom duration control add an option to activate it
@@ -38,6 +41,7 @@ export function Controls (document, pie, elSelectDuration, modalDuration = null)
     this._attachControls();
 }
 
+// Add a custom duration to options and set selected option to custom duration
 Controls.prototype.SetCustomDuration = function (customDuration) {
     if (isNumeric(customDuration) && customDuration > 0 && customDuration <= MAX_DURATION) {
         const exists = this._options.find((o) => {
@@ -116,7 +120,6 @@ Controls.prototype._attachControls = function() {
             }
         }
     });
-
 
     const elStart = this._getButtonByText('Start');
     const SPACE_KEYCODE = 32;
