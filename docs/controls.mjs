@@ -17,7 +17,7 @@ const gOptions = [
 const gOptionCustom = { "value": "custom", "text": "Custom Duration", "last": true };
 const MAX_DURATION = 12 * 60*60 - 1;
 
-export function Controls (pie, durationSelectId, modalDuration = null) {
+export function Controls (document, pie, durationSelectId, modalDuration = null) {
     this._debug = 0;
     this._document = document;
     this._options = gOptions;
@@ -118,9 +118,9 @@ Controls.prototype._attachControls = function() {
     });
 
 
-    const elStart = getButtonByText('Start');
+    const elStart = this._getButtonByText('Start');
     const SPACE_KEYCODE = 32;
-    document.body.onkeyup = function(e) {
+    this._document.body.onkeyup = function(e) {
         if(e.keyCode == SPACE_KEYCODE){
             elStart.click();
         }
@@ -177,13 +177,15 @@ Controls.prototype._setDurationFromSeconds = function (seconds) {
     this._duration = seconds * 1000;
 }
 
+Controls.prototype._getButtonByText = function (text)
+{
+    // https://stackoverflow.com/a/29289196
+    const xpath = `//a[text()='${text}']`;
+    return this._document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;    
+}
+
+
 function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
-function getButtonByText(text)
-{
-    // https://stackoverflow.com/a/29289196
-    const xpath = `//a[text()='${text}']`;
-    return document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;    
-}

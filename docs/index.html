@@ -119,7 +119,7 @@
 
     const pie = new Pie('pie-path');
     const modalDuration = new Modal('duration-picker');
-    const controls = new Controls(pie, 'durationSelect', modalDuration);
+    const controls = new Controls(document, pie, 'durationSelect', modalDuration);
     pie.draw();
 
     // On success of Duration Modal close modal and update controls with result
