@@ -106,7 +106,7 @@ class ComponentDuration extends HTMLElement {
                 bubbles: true,
                 detail: {duration: this.duration} 
             });
-            document.dispatchEvent(event);
+            DispatchEvent(event);
         });
     }
 
@@ -129,7 +129,7 @@ window.WebComponents ? window.WebComponents.waitFor(register) : register();
 function appendOptions(element, count, offset = 0) {
     element.innerHTML = '';      // remove ALL child nodes of <select>
     for (let index = offset; index < count; ++index) {
-        const opt = document.createElement("option");
+        const opt = CreateElement("option");
         opt.value = `${index}`;
         opt.innerHTML = pad(index, 2);
         element.appendChild(opt);
@@ -143,5 +143,13 @@ function pad(num, size) {
 }
 
 function CreateElement(elementName) {
-    return document.createElement(elementName);
+    return getDocument().createElement(elementName);
+}
+
+function DispatchEvent(event) {
+    return getDocument().dispatchEvent(event);
+}
+
+function getDocument() {
+    return document;
 }
