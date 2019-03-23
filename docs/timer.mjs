@@ -7,4 +7,14 @@ export function Timer () {
     this._currentTime = null;
     this._startTime = null;
 
+    Object.defineProperty(this, 'MINUTE', {
+        get: function () {
+            return 60;
+        }
+    })
+    Object.defineProperty(this, 'HOUR', {
+        get: function () {
+            return this.MINUTE * 60;
+        }
+    })
 }

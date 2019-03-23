@@ -58,7 +58,7 @@ class ComponentDuration extends HTMLElement {
 
     // The value of this component is the number of seconds duration selected
     get duration() {
-        return (+this._hours * 60 * 60) + (+this._minutes * 60) + (+this._seconds);
+        return (+this._hours * 60 * 60) + (+this._minutes * 60) + (+this._seconds); // REFACTOR should return three individual values
     }
     
     constructor() {
