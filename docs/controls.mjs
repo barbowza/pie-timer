@@ -30,6 +30,7 @@ export function Controls (document, pie, durationSelectId, modalDuration = null)
     this._elDurationId = durationSelectId;
     this._elDuration = this._document.getElementById(durationSelectId);
     if (modalDuration) {
+        // when we have a custom duration control add an option to activate it
         this._modalDuration = modalDuration;
         this._options.push(gOptionCustom);
     }
