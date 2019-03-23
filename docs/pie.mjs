@@ -1,3 +1,4 @@
+"use strict";
 export function Pie (elSvgPath, percentage = 1, colour = 'Coral') {
   this._elSvgPath = elSvgPath
   this._percentage = percentage;

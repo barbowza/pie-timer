@@ -1,3 +1,4 @@
+"use strict";
 export function Modal(elModal) {
     this._elModal = elModal;
     const closers = this._elModal.getElementsByClassName('modal-close');

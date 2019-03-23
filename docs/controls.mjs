@@ -1,3 +1,4 @@
+"use strict";
 const gOptions = [
     { "value": 0, "text": "-- Duration --", "first": true, disabled: true},
     { "value": 1, "text": "1 second" },

@@ -1,3 +1,4 @@
+"use strict";
 // Our tag <duration-select>
 const tagName = 'duration-select'; // web components MUST have at least one dash in their tag name
 
