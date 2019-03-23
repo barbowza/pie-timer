@@ -1,6 +1,5 @@
-export function Pie (svgPathId, percentage = 1, colour = 'Coral') {
-  //this._elSvgPath = elSvgPath;
-  this._elSvgPath = document.getElementById(svgPathId);
+export function Pie (elSvgPath, percentage = 1, colour = 'Coral') {
+  this._elSvgPath = elSvgPath
   this._percentage = percentage;
   this._startPercentage = 0;
   this._colour = colour;

@@ -31,7 +31,7 @@
                 <!-- Pie Column -->
                 <div class="column is-three-fifths is-offset-one-fifth has-text-centered">
                     <svg viewBox="-1 -1 2 2" style="transform: rotate(-90deg)" preserveAspectRatio="xMidYMid">
-                        <path id="pie-path" d="M 1 0 A 1 1 0 0 1 1 0 L 0 0" fill="Coral" stroke="transparent"
+                        <path id="main-pie-path" d="M 1 0 A 1 1 0 0 1 1 0 L 0 0" fill="Coral" stroke="transparent"
                             stroke-opacity="0"></path>
                     </svg>
                 </div>
@@ -117,8 +117,9 @@
     import { Controls } from './controls.mjs';
     import { Modal } from './modal.mjs';
 
-    const pie = new Pie('pie-path');
-    const elModalDuration = document.getElementById('duration-picker');
+    const elPiePath = document.querySelector('#main-pie-path');
+    const pie = new Pie(elPiePath);
+    const elModalDuration = document.querySelector('#duration-picker');
     const modalDuration = new Modal(elModalDuration);
     const controls = new Controls(document, pie, 'durationSelect', modalDuration);
     pie.draw();
