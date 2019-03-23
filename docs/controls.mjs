@@ -52,10 +52,7 @@ Controls.prototype.SetCustomDuration = function (customDuration) {
             this._setDurationSelectToOptionByValue(exists.value);
             this._setDurationFromSeconds(exists.value);
         } else {
-            const h = Math.floor(customDuration / (this._timer.MINUTE));
-            const m = Math.floor((customDuration - (h * (this._timer.HOUR))) / this._timer.MINUTE);
-            const s = customDuration % this._timer.MINUTE;
-            const text = (h ? `${h} hours ` : '') + (m ? `${m} minutes ` : '') + (s ? `${s} seconds` : '');
+            const text = this._timer.getDurationAsText(customDuration);
             this._options.push({ "value": customDuration, "text": text });
             this._options.sort((a, b) => {
                 if (a.first || b.last) {
