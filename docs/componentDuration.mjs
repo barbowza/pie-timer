@@ -1,7 +1,7 @@
+// Our tag <duration-select>
 const tagName = 'duration-select'; // web components MUST have at least one dash in their tag name
 
-const template = document.createElement('template');
-template.innerHTML = `
+const gMarkup = `
 <style>
     @import "bulma_darkTheme.css";
 </style>
@@ -45,14 +45,14 @@ template.innerHTML = `
     </div>
 `;
 
-
 class ComponentDuration extends HTMLElement {
-    static get successEventName() {
-        return 'custom-duration';
+
+    static get eventSuccessName() {
+        return 'event-custom-duration-success';
     } 
 
     set duration(value) {
-        this._someValue = value;    // TODO
+        this._someValue = value;    // TODO if ever need to pre set the controls to something other than 0 : 0 : 0
     }
 
     // The value of this component is the number of seconds duration selected
@@ -63,10 +63,15 @@ class ComponentDuration extends HTMLElement {
     constructor() {
         super();
         this._debug = 0;
+
         this._hours = 0;
         this._minutes = 0;
         this._seconds = 0;
-        this.populatedTemplate = template.content.cloneNode(true);
+
+        this._template = CreateElement('template');
+        this._template.innerHTML = gMarkup;
+
+        this.populatedTemplate = this._template.content.cloneNode(true);
         this.shadowOutermost = this.populatedTemplate.getElementById('outermost');
         this.shadowHours = this.populatedTemplate.getElementById('hours');
         this.shadowMinutes = this.populatedTemplate.getElementById('minutes');
@@ -97,7 +102,7 @@ class ComponentDuration extends HTMLElement {
         });
 
         this.shadowOk.addEventListener('click', (e) => {
-            const event = new CustomEvent('custom-duration', { 
+            const event = new CustomEvent(ComponentDuration.eventSuccessName, { 
                 bubbles: true,
                 detail: {duration: this.duration} 
             });
@@ -114,10 +119,7 @@ class ComponentDuration extends HTMLElement {
     }
 }
 
-
-
-
-  
+ 
 // Register our Component with the DOM
 const register = () => customElements.define(tagName, ComponentDuration);
 window.WebComponents ? window.WebComponents.waitFor(register) : register();
@@ -140,3 +142,6 @@ function pad(num, size) {
     return s;
 }
 
+function CreateElement(elementName) {
+    return document.createElement(elementName);
+}

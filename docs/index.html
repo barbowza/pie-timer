@@ -125,7 +125,7 @@
     pie.draw();
 
     // On success of Duration Modal close modal and update controls with result
-    document.addEventListener(ComponentDuration.successEventName, (e) => {
+    document.addEventListener(ComponentDuration.eventSuccessName, (e) => {
       const customDuration = e.detail.duration;
       modalDuration.close();
       controls.SetCustomDuration(customDuration);
