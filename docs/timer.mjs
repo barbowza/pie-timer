@@ -7,16 +7,6 @@ export function Timer () {
     this._currentTime = null;
     this._startTime = null;
 
-    Object.defineProperty(this, 'minute', { // These getters are now redundant but I leave them to record syntax of getters
-        get: function () {
-            return 60;
-        }
-    })
-    Object.defineProperty(this, 'hour', {
-        get: function () {
-            return this.minute * 60;
-        }
-    })
     Object.defineProperty(this, 'milliseconds', {
         get: function () {
             return 1000;
