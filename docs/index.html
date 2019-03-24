@@ -63,11 +63,6 @@
                 </p>
             </div>
         </div>
-        <div class="container">
-            <div class="field is-grouped is-grouped-centered">
-                <div id="info-panel"></div>
-            </div>
-        </div>
     </section>
 
     <!-- Duration Picker Modal -->
@@ -80,7 +75,7 @@
     </div>
 
     <!-- Template Open Info Column -->
-    <template id="open-info-template">
+    <template id="info-opener-template">
         <div class="column is-one-fifth has-text-centered">
                 <span class="icon is-medium has-text-info is-pulled-right action-open-info">
                     <i class="fa fa-info-circle fa-2x"></i>
@@ -105,6 +100,10 @@
                     <tr>
                         <td>Total</td>
                         <td>05:31</td>
+                    </tr>
+                    <tr>
+                        <td id="info-panel"></td>
+                        <td></td>
                     </tr>
                 </tbody>
             </table>
@@ -131,8 +130,6 @@
     const elSelectDuration = document.querySelector('#durationSelect');
     const timer = new Timer();
     const controls = new Controls(document, pie, timer, elSelectDuration, modalDuration);
-    const elInfo = document.querySelector('#info-panel');
-    const info = new Info(elInfo);
     pie.draw();
 
     // On success of Duration Modal close modal and update controls with result
@@ -146,22 +143,27 @@
     const idActionOpen = '.action-open-info';
     const idActionClose = '.action-close-info'
     const elColumns = document.querySelector('#main-columns');
-    const elTemplateOpenInfo = document.querySelector('#open-info-template');
+    const elTemplateOpenInfo = document.querySelector('#info-opener-template');
+    let templateOpenInfo = document.importNode(elTemplateOpenInfo.content, true); 
     const elTemplateInfo = document.querySelector('#info-template');
+    let templateInfo = document.importNode(elTemplateInfo.content, true);
+
+    const elInfo = templateInfo.querySelector('#info-panel');
+    const info = new Info(elInfo);
 
     elColumns.addEventListener('click', (e) => {
         if (nodeIsChild(e.target, idActionOpen)) {
-            elColumns.removeChild(elColumns.lastElementChild);
-            elColumns.appendChild(document.importNode(elTemplateInfo.content, true));
+            templateOpenInfo = elColumns.removeChild(elColumns.lastElementChild);
+            elColumns.appendChild(templateInfo);
             elColumns.firstElementChild.classList.remove('is-offset-one-fifth');
         }
         else if (nodeIsChild(e.target, idActionClose)) {
-            elColumns.removeChild(elColumns.lastElementChild);
-            elColumns.appendChild(document.importNode(elTemplateOpenInfo.content, true));
+            templateInfo = elColumns.removeChild(elColumns.lastElementChild);
+            elColumns.appendChild(templateOpenInfo);
             elColumns.firstElementChild.classList.add('is-offset-one-fifth');
         }
     });
-    elColumns.appendChild(document.importNode(elTemplateOpenInfo.content, true));
+    elColumns.appendChild(templateOpenInfo);
 
 
     let hInfoTimer = window.setInterval(function () {
