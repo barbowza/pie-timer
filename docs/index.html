@@ -86,27 +86,7 @@
     <!-- Template Info Panel -->
     <template id="info-panel-template">
         <div class="column is-two-fifths has-text-centered">
-            <!-- Timer Info -->
-            <table class="table is-fullwidth">
-                <tbody>
-                    <tr>
-                        <td>Loop</td>
-                        <td>5</td>
-                    </tr>
-                    <tr>
-                        <td>Time</td>
-                        <td>00:31</td>
-                    </tr>
-                    <tr>
-                        <td>Total</td>
-                        <td>05:31</td>
-                    </tr>
-                    <tr>
-                        <td id="info-content"></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div id="info-content"></div>
             <span class="icon is-medium has-text-info is-pulled-right action-close-info">
                 <i class="fa fa-times-circle fa-2x"></i>
             </span>
@@ -121,7 +101,7 @@
     import { Controls } from './controls.mjs';
     import { Modal } from './modal.mjs';
     import { Timer } from './timer.mjs';
-    import { Info } from './info.mjs';
+    import { InfoPanel } from './infoPanel.mjs';
 
     const elPiePath = document.querySelector('#main-pie-path');
     const pie = new Pie(elPiePath);
@@ -148,8 +128,6 @@
     const elTemplateInfoPanel = document.querySelector('#info-panel-template');
     let templateInfoPanel = document.importNode(elTemplateInfoPanel.content, true);
 
-    const elInfo = templateInfoPanel.querySelector('#info-content');
-    const info = new Info(elInfo);
 
     elColumns.addEventListener('click', (e) => {
         if (nodeIsChild(e.target, idActionOpen)) {
@@ -166,9 +144,11 @@
     elColumns.appendChild(templateOpenInfo);
 
 
+    const elInfoPanel = templateInfoPanel.querySelector('#info-content');
+    const infoPanel = new InfoPanel(elInfoPanel);
     let hInfoTimer = window.setInterval(function () {
-        info.update();
-        info.render();
+        infoPanel.update();
+        infoPanel.render();
     }, 1000);
 
 

@@ -1,5 +1,5 @@
 "use strict";
-export function Info (node) {
+export function InfoPanel (node) {
     this._debug = 1;
 
     this._node = node;
@@ -8,12 +8,33 @@ export function Info (node) {
     };
 
     this._template = (props) => {
-        return `<span id="info">${props.counter}</span>`;
+        return `
+        <table class="table is-fullwidth">
+            <tbody>
+                <tr>
+                    <td>Loop</td>
+                    <td>5</td>
+                </tr>
+                <tr>
+                    <td>Time</td>
+                    <td>00:31</td>
+                </tr>
+                <tr>
+                    <td>Total</td>
+                    <td>05:31</td>
+                </tr>
+                <tr>
+                    <td>counter</td>
+                    <td>${props.counter}</td>
+                </tr>
+            </tbody>
+        </table>
+    `;
     }
 }
 
 // Attach updated html to the DOM
-Info.prototype.render = function() {
+InfoPanel.prototype.render = function() {
     // Get the template
     const template = (typeof this._template === 'function' ? this._template(this._info) : this._template);
     if (['string', 'number'].indexOf(typeof template) === -1) return;
@@ -34,7 +55,7 @@ Info.prototype.render = function() {
     return this._node;
 };
 
-// Update the attached Info elements
-Info.prototype.update = function () {
+// Update the attached info elements
+InfoPanel.prototype.update = function () {
     ++this._info.counter;
 }
