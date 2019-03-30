@@ -7,6 +7,7 @@ export function Timer () {
     this._currentTime = null;
     this._startTime = null;
     this._laps = 0;
+    this._timeAccrued = 0;
 
     Object.defineProperty(this, 'milliseconds', {
         get: function () {
@@ -21,7 +22,7 @@ export function Timer () {
     Object.defineProperty(this, 'duration', {
         set: function (seconds) {
             const newDuration = this.milliseconds * seconds;
-            this._laps = Math.floor(this._laps * (this._duration / newDuration));
+            this._laps = Math.floor(this._timeAccrued / newDuration);
             this._duration = newDuration;
         }
     })
@@ -45,6 +46,7 @@ Timer.prototype.lap = function () {
     this._startTime = this._currentTime;
     ++this._laps;
     this._elapsed = 0;
+    this._timeAccrued += this._duration;
 }
 
 Timer.prototype.tick = function () {
@@ -74,7 +76,5 @@ Timer.prototype.getElapsedTimeInSeconds = function () {
 }
 
 Timer.prototype.getTotalTimeInSeconds = function () {
-    return Math.floor(this._elapsed / this.milliseconds) + Math.floor(this._laps * this._duration / this.milliseconds);
+    return Math.floor(this._elapsed / this.milliseconds) + Math.floor(this._timeAccrued / this.milliseconds);
 }
-
-
