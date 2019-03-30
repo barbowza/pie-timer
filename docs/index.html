@@ -84,7 +84,7 @@
     </template>
 
     <!-- Template Info Panel -->
-    <template id="info-template">
+    <template id="info-panel-template">
         <div class="column is-two-fifths has-text-centered">
             <!-- Timer Info -->
             <table class="table is-fullwidth">
@@ -102,7 +102,7 @@
                         <td>05:31</td>
                     </tr>
                     <tr>
-                        <td id="info-panel"></td>
+                        <td id="info-content"></td>
                         <td></td>
                     </tr>
                 </tbody>
@@ -145,20 +145,20 @@
     const elColumns = document.querySelector('#main-columns');
     const elTemplateOpenInfo = document.querySelector('#info-opener-template');
     let templateOpenInfo = document.importNode(elTemplateOpenInfo.content, true); 
-    const elTemplateInfo = document.querySelector('#info-template');
-    let templateInfo = document.importNode(elTemplateInfo.content, true);
+    const elTemplateInfoPanel = document.querySelector('#info-panel-template');
+    let templateInfoPanel = document.importNode(elTemplateInfoPanel.content, true);
 
-    const elInfo = templateInfo.querySelector('#info-panel');
+    const elInfo = templateInfoPanel.querySelector('#info-content');
     const info = new Info(elInfo);
 
     elColumns.addEventListener('click', (e) => {
         if (nodeIsChild(e.target, idActionOpen)) {
             templateOpenInfo = elColumns.removeChild(elColumns.lastElementChild);
-            elColumns.appendChild(templateInfo);
+            elColumns.appendChild(templateInfoPanel);
             elColumns.firstElementChild.classList.remove('is-offset-one-fifth');
         }
         else if (nodeIsChild(e.target, idActionClose)) {
-            templateInfo = elColumns.removeChild(elColumns.lastElementChild);
+            templateInfoPanel = elColumns.removeChild(elColumns.lastElementChild);
             elColumns.appendChild(templateOpenInfo);
             elColumns.firstElementChild.classList.add('is-offset-one-fifth');
         }

@@ -12,6 +12,7 @@ export function Info (node) {
     }
 }
 
+// Attach updated html to the DOM
 Info.prototype.render = function() {
     // Get the template
     const template = (typeof this._template === 'function' ? this._template(this._info) : this._template);
@@ -21,7 +22,7 @@ Info.prototype.render = function() {
     if (this._node.innerHTML === template) return;
     this._node.innerHTML = template;
 
-    // Dispatch a render event
+    // Dispatch a render event. When content is updated you may want to take additional actions elsewhere in the code.
     if (typeof window.CustomEvent === 'function') {
         const event = new CustomEvent('render', {
             bubbles: true
@@ -33,6 +34,7 @@ Info.prototype.render = function() {
     return this._node;
 };
 
+// Update the attached Info elements
 Info.prototype.update = function () {
     ++this._info.counter;
 }
