@@ -44,6 +44,7 @@ Timer.prototype.start = function () {
 Timer.prototype.lap = function () {
     this._startTime = this._currentTime;
     ++this._laps;
+    this._elapsed = 0;
 }
 
 Timer.prototype.tick = function () {
