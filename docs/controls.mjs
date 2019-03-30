@@ -147,6 +147,10 @@ Controls.prototype._attachControls = function() {
     });
 }
 
+/**
+ * Animation is driven by the browser repaint event 
+ * https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+ */
 Controls.prototype._startAnimation = function () {
     const animate = () => {
         this._timer.tick();
@@ -155,9 +159,9 @@ Controls.prototype._startAnimation = function () {
         if (percentage >= 1) {
             this._timer.lap();
         }
-        this._animationFrameRequest = requestAnimationFrame(animate);
+        this._animationFrameRequest = requestAnimationFrame(animate);   // Setup the next tick
     };
-    animate();
+    animate();  // Perform the first tick
 }
 
 Controls.prototype._pauseAnimation = function () {

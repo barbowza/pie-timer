@@ -6,13 +6,13 @@ export function Timer () {
     this._duration = null;
     this._currentTime = null;
     this._startTime = null;
+    this._laps = 0;
 
     Object.defineProperty(this, 'milliseconds', {
         get: function () {
             return 1000;
         }
     })
-
     Object.defineProperty(this, 'percentElapsed', {
         get: function () {
             return this._elapsed / this._duration;  // percent is 0 - 1
@@ -20,7 +20,14 @@ export function Timer () {
     })
     Object.defineProperty(this, 'duration', {
         set: function (seconds) {
-            this._duration = this.milliseconds * seconds;
+            const newDuration = this.milliseconds * seconds;
+            this._laps = Math.floor(this._laps * (this._duration / newDuration));
+            this._duration = newDuration;
+        }
+    })
+    Object.defineProperty(this, 'laps', {
+        get: function () {
+            return this._laps;
         }
     })
 }
@@ -36,6 +43,7 @@ Timer.prototype.start = function () {
 
 Timer.prototype.lap = function () {
     this._startTime = this._currentTime;
+    ++this._laps;
 }
 
 Timer.prototype.tick = function () {
@@ -46,6 +54,7 @@ Timer.prototype.tick = function () {
 Timer.prototype.reset = function () {
     this._elapsed = 0;
     this._startTime = this._currentTime = performance.now();
+    this._laps = 0;
 }
 
 Timer.prototype.getDurationAsText = function (duration) {
@@ -58,4 +67,13 @@ Timer.prototype.getDurationAsText = function (duration) {
     const text = (h ? `${h} ${hText} ` : '') + (m ? `${m} ${mText} ` : '') + (s ? `${s} ${sText}` : '');
     return text;
 }
+
+Timer.prototype.getElapsedTimeInSeconds = function () {
+    return Math.floor(this._elapsed / this.milliseconds);
+}
+
+Timer.prototype.getTotalTimeInSeconds = function () {
+    return Math.floor(this._elapsed / this.milliseconds) + Math.floor(this._laps * this._duration / this.milliseconds);
+}
+
 

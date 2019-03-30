@@ -5,7 +5,7 @@ export function InfoPanel (node, dataSource) {
     this._node = node;
     this._dataSource = dataSource;
     this._info = {};
-    for(var key in dataSource) {    // Initialise an object to mirror the sataSource values
+    for(var key in dataSource) {    // Initialise an object to mirror the dataSource values
         this._info[key] = 0;
     }
 
@@ -24,10 +24,6 @@ export function InfoPanel (node, dataSource) {
                 <tr>
                     <td>Total</td>
                     <td>${props.total}</td>
-                </tr>
-                <tr>
-                    <td>counter</td>
-                    <td>${props.counter}</td>
                 </tr>
             </tbody>
         </table>

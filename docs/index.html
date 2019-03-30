@@ -144,19 +144,15 @@
 
     // Callbacks to update info elements of same name
     const infoCalculator = (() => {
-        let _counter = 0;
         return {
-            counter: () => {
-                return ++_counter;
-            },
             loops: () => {
-                return _counter;
+                return timer.laps;
             },
             time: () => {
-                return _counter;
+                return timer.getElapsedTimeInSeconds();
             },
             total: () => {
-                return _counter;
+                return timer.getTotalTimeInSeconds();
             }
         }
     })();
@@ -164,9 +160,10 @@
     const elInfoContent = templateInfoPanel.querySelector('#info-content');
     const infoPanel = new InfoPanel(elInfoContent, infoCalculator);
     let hInfoTimer = window.setInterval(function () {
+        // Refactor to function. This will then also be called by Pie complete event.
         infoPanel.update();
         infoPanel.render();
-    }, 1000);
+    }, 100);
 
 
     // Helper nodeIsChild
