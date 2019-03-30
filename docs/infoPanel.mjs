@@ -1,11 +1,13 @@
 "use strict";
-export function InfoPanel (node) {
+export function InfoPanel (node, dataSource) {
     this._debug = 1;
 
     this._node = node;
-    this._info = {
-        counter: 0
-    };
+    this._dataSource = dataSource;
+    this._info = {};
+    for(var key in dataSource) {    // Initialise an object to mirror the sataSource values
+        this._info[key] = 0;
+    }
 
     this._template = (props) => {
         return `
@@ -13,15 +15,15 @@ export function InfoPanel (node) {
             <tbody>
                 <tr>
                     <td>Loop</td>
-                    <td>5</td>
+                    <td>${props.loops}</td>
                 </tr>
                 <tr>
                     <td>Time</td>
-                    <td>00:31</td>
+                    <td>${props.time}</td>
                 </tr>
                 <tr>
                     <td>Total</td>
-                    <td>05:31</td>
+                    <td>${props.total}</td>
                 </tr>
                 <tr>
                     <td>counter</td>
@@ -57,5 +59,11 @@ InfoPanel.prototype.render = function() {
 
 // Update the attached info elements
 InfoPanel.prototype.update = function () {
-    ++this._info.counter;
+    console.log('info contains:');
+    Object.keys(this._info).forEach((key) => {
+        console.log(key);
+        if (this._dataSource.hasOwnProperty(key)) {
+            this._info[key] = this._dataSource[key]();
+        }
+     });
 }

@@ -128,7 +128,6 @@
     const elTemplateInfoPanel = document.querySelector('#info-panel-template');
     let templateInfoPanel = document.importNode(elTemplateInfoPanel.content, true);
 
-
     elColumns.addEventListener('click', (e) => {
         if (nodeIsChild(e.target, idActionOpen)) {
             templateOpenInfo = elColumns.removeChild(elColumns.lastElementChild);
@@ -143,9 +142,27 @@
     });
     elColumns.appendChild(templateOpenInfo);
 
+    // Callbacks to update info elements of same name
+    const infoCalculator = (() => {
+        let _counter = 0;
+        return {
+            counter: () => {
+                return ++_counter;
+            },
+            loops: () => {
+                return _counter;
+            },
+            time: () => {
+                return _counter;
+            },
+            total: () => {
+                return _counter;
+            }
+        }
+    })();
 
-    const elInfoPanel = templateInfoPanel.querySelector('#info-content');
-    const infoPanel = new InfoPanel(elInfoPanel);
+    const elInfoContent = templateInfoPanel.querySelector('#info-content');
+    const infoPanel = new InfoPanel(elInfoContent, infoCalculator);
     let hInfoTimer = window.setInterval(function () {
         infoPanel.update();
         infoPanel.render();
