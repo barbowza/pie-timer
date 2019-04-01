@@ -114,13 +114,15 @@ Controls.prototype._attachControls = function() {
         }
     });
 
-    const elStart = this._getButtonByText('Start');
-    const SPACE_KEYCODE = 32;
-    this._document.body.onkeyup = function(e) {
-        if(e.keyCode == SPACE_KEYCODE){
-            elStart.click();
+    this._document.body.onkeyup = (() => {
+        const elStart = this._getButtonByText('Start');
+        const SPACE_KEYCODE = 32;
+        return (e) => {
+            if(e.keyCode == SPACE_KEYCODE){
+                elStart.click();
+            }
         }
-    }
+    })();
 
     this._document.addEventListener('change', (e) => {
         if (this._elSelectDuration === e.target) {
