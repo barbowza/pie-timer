@@ -95,20 +95,22 @@ Controls.prototype._setDurationSelectToOptionByValue = function (value) {
 
 Controls.prototype._attachControls = function() {
     this._document.addEventListener('click', (e) => {
-        const elementText = e.target.text;
-        if (["Start", "Pause", "Reset"].includes(elementText)) {
-            if ("Start" === elementText) {
+        const el = e.target;
+        if (el.classList.contains('btn-start-pause')) {
+            const txtStart = 'Start';
+            const txtPause = 'Pause';
+            if (el.text === txtStart) {
                 this._timer.start();
                 this._startAnimation(this._pie);
-                e.target.text = "Pause";
-            } else if ("Pause" === elementText) {
+                e.target.text = txtPause;
+            } else if (el.text === txtPause) {
                 this._pauseAnimation();
-                e.target.text = "Start";
-            } else if ("Reset" === elementText) {
-                this._timer.reset();
-                this._pie.percentage = 0;
-                this._pie.draw();
+                e.target.text = txtStart;
             }
+        } else if (el.classList.contains('btn-reset')) {
+            this._timer.reset();
+            this._pie.percentage = 0;
+            this._pie.draw();
         }
     });
 
