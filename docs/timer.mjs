@@ -1,6 +1,6 @@
 "use strict";
 export function Timer () {
-    this._debug = 1;
+    this._debug = 0;
 
     this._elapsed = 0;
     this._duration = null;

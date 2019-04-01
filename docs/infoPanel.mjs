@@ -1,6 +1,6 @@
 "use strict";
 export function InfoPanel (node, dataSource) {
-    this._debug = 1;
+    this._debug = 0;
 
     this._node = node;
     this._dataSource = dataSource;
@@ -55,9 +55,9 @@ InfoPanel.prototype.render = function() {
 
 // Update the attached info elements
 InfoPanel.prototype.update = function () {
-    console.log('info contains:');
+    this._debug && console.log('info contains:');
     Object.keys(this._info).forEach((key) => {
-        console.log(key);
+        this._debug && console.log(key);
         if (this._dataSource.hasOwnProperty(key)) {
             this._info[key] = this._dataSource[key]();
         }
