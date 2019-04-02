@@ -67,7 +67,7 @@
     </section>
 
     <!-- Duration Picker Modal -->
-    <div class="modal is-clipped" id="duration-picker">
+    <div class="modal is-clipped" data-js="picker-duration">
         <div class="modal-background has-background-primary"></div>
         <div class="modal-content">
             <duration-select></duration-select>
@@ -106,7 +106,7 @@
 
     const elPiePath = document.querySelector('[data-js="main-pie-path"]');
     const pie = new Pie(elPiePath);
-    const elModalDuration = document.querySelector('#duration-picker');
+    const elModalDuration = document.querySelector('[data-js="picker-duration"]');
     const modalDuration = new Modal(elModalDuration);
     const elSelectDuration = document.querySelector('[data-js="select-duration"]');
     const timer = new Timer();

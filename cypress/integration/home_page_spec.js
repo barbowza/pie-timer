@@ -25,5 +25,12 @@ context("Controls", () => {
         .and('include', 'M 1 0 A 1 1 0 1 1 1 -2.4492935982947064e-16 L 0 0')
         ;
     });
+    
+    // Cypress does not support shadowDom
+    // it("can set a Custom Duration", () => {
+    //   cy.get('select')
+    //     .select('Custom Duration')
+    //     .get('#ok')
+    // })
   });
 });
