@@ -29,7 +29,7 @@
     <section class="section">
         <!-- Main -->
         <div class="container">
-            <div class="columns is-mobile" id="main-columns">
+            <div class="columns is-mobile" data-js="main-columns">
                 <!-- Pie Column -->
                 <div class="column is-three-fifths is-offset-one-fifth has-text-centered">
                     <svg viewBox="-1 -1 2 2" style="transform: rotate(-90deg)" preserveAspectRatio="xMidYMid">
@@ -124,7 +124,7 @@
     // Handle the open and close of Info Panel
     const idActionOpen = '.action-open-info';
     const idActionClose = '.action-close-info'
-    const elColumns = document.querySelector('#main-columns');
+    const elColumns = document.querySelector('[data-js="main-columns"]');
     const elTemplateOpenInfo = document.querySelector('#info-opener-template');
     let templateOpenInfo = document.importNode(elTemplateOpenInfo.content, true); 
     const elTemplateInfoPanel = document.querySelector('#info-panel-template');
