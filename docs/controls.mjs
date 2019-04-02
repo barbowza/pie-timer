@@ -114,12 +114,18 @@ Controls.prototype._attachControls = function() {
         }
     });
 
+    // Keyboard shortcuts
     this._document.body.onkeyup = (() => {
         const elStart = this._getButtonByText('Start');
         const SPACE_KEYCODE = 32;
+        const elReset = this._getButtonByText('Reset');
+        const R_KEYCODE = 82;
         return (e) => {
-            if(e.keyCode == SPACE_KEYCODE){
+            // Spacebar toggle Start / Pause 
+            if(e.keyCode === SPACE_KEYCODE) {
                 elStart.click();
+            } else if (e.keyCode === R_KEYCODE) {
+                elReset.click();
             }
         }
     })();
