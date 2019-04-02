@@ -1,13 +1,11 @@
 describe("The Home Page", function() {
   it("successfully loads", function() {
-    cy.visit("/docs/index.html"); // change URL to match your dev URL
+    cy.get('h1').should('contain', 'Pie Timer');
   });
 });
 
 context("Controls", () => {
   beforeEach(() => {
-    cy.viewport(411, 731);
-    cy.visit("/docs/index.html");
   });
 
   describe("Controls exist", () => {
