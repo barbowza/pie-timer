@@ -136,20 +136,6 @@ Controls.prototype._attachControls = function() {
             if (isNumeric(val)) {
                 this._setDurationFromSeconds(val);
             }
-            // if (val === 'custom') {
-            //     const customValue = 75; // TODO get from number range dialog
-            //     const customOption = { "value": customValue, "text": `${customValue} seconds` };
-            //     this._Options.push(customOption).sort((a, b) => {
-            //         if (a.first) {
-            //             return -1;
-            //         } else if (b.last) {
-            //             return 1;
-            //         } else {
-            //             return b.value - a.value;
-            //         }
-            //     });
-            //     this._setDurationFromSeconds(customValue);
-            // }
             if (val === 'custom') {
                 this._modalDuration.open();
             }
