@@ -50,7 +50,7 @@
             <div class="field is-grouped is-grouped-centered">
                 <div class="control">
                     <div class="select is-rounded">
-                        <select id="durationSelect">
+                        <select data-js="select-duration">
                             <option>-- Duration --</option>
                         </select>
                     </div>
@@ -108,7 +108,7 @@
     const pie = new Pie(elPiePath);
     const elModalDuration = document.querySelector('#duration-picker');
     const modalDuration = new Modal(elModalDuration);
-    const elSelectDuration = document.querySelector('#durationSelect');
+    const elSelectDuration = document.querySelector('[data-js="select-duration"]');
     const timer = new Timer();
     const controls = new Controls(document, pie, timer, elSelectDuration, modalDuration);
     pie.draw();

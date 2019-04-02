@@ -14,8 +14,8 @@ context("Controls", () => {
       cy.get(".btn-reset").should("contain", "Reset");
     });
 
-    it("has a Select", () => {
-      cy.get("#durationSelect").should("have.value", "5")
+    it("has duration Select set to 5", () => {
+      cy.get('[data-js="select-duration"]').should("have.value", "5")
     });
 
     it("has Main Pie visible and full", () => {
