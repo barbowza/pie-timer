@@ -76,7 +76,7 @@
     </div>
 
     <!-- Template Open Info Column -->
-    <template id="info-opener-template">
+    <template data-js="template-info-hidden">
         <div class="column is-one-fifth has-text-centered">
                 <span class="icon is-medium has-text-info is-pulled-right action-open-info">
                     <i class="fa fa-info-circle fa-2x"></i>
@@ -85,12 +85,12 @@
     </template>
 
     <!-- Template Info Panel -->
-    <template id="info-panel-template">
+    <template data-js="template-info-panel">
         <div class="column is-two-fifths has-text-centered">
             <span class="icon is-medium has-text-info is-pulled-right action-close-info">
                 <i class="fa fa-times-circle fa-2x"></i>
             </span>
-            <div id="info-content"></div>
+            <div data-js="info-panel-content"></div>
         </div>
     </template>
 
@@ -124,9 +124,9 @@
     const idActionOpen = '.action-open-info';
     const idActionClose = '.action-close-info'
     const elColumns = document.querySelector('[data-js="main-columns"]');
-    const elTemplateOpenInfo = document.querySelector('#info-opener-template');
-    let templateOpenInfo = document.importNode(elTemplateOpenInfo.content, true); 
-    const elTemplateInfoPanel = document.querySelector('#info-panel-template');
+    const elTemplateInfoHidden = document.querySelector('[data-js="template-info-hidden"]');
+    let templateOpenInfo = document.importNode(elTemplateInfoHidden.content, true); 
+    const elTemplateInfoPanel = document.querySelector('[data-js="template-info-panel"]');
     let templateInfoPanel = document.importNode(elTemplateInfoPanel.content, true);
 
     elColumns.addEventListener('click', (e) => {
@@ -158,7 +158,7 @@
         }
     })();
 
-    const elInfoContent = templateInfoPanel.querySelector('#info-content');
+    const elInfoContent = templateInfoPanel.querySelector('[data-js="info-panel-content"]');
     const infoPanel = new InfoPanel(elInfoContent, infoCalculator);
     let hInfoTimer = window.setInterval(function () {
         // Refactor to function. This will then also be called by Pie complete event.

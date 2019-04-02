@@ -6,7 +6,7 @@ const gMarkup = `
 <style>
     @import "bulma_darkTheme.css";
 </style>
-<div id="outermost" class="container">
+<div data-js="outermost" class="container">
     <div class="field is-grouped is-grouped-centered">
         <span class="control">hours</span>
         <span class="control"> : </span>
@@ -17,7 +17,7 @@ const gMarkup = `
     <div class="field is-grouped is-grouped-centered">
         <div class="control">
             <div class="select" aria-label="hours">
-                <select id="hours">
+                <select data-js="select-hours">
                     <option value="0">00</option>
                 </select>
             </div>
@@ -25,7 +25,7 @@ const gMarkup = `
         <p class="control"> : </p>
         <div class="control">
             <div class="select" aria-label="minutes">
-                <select id="minutes">
+                <select data-js="select-minutes">
                     <option value="0">00</option>
                 </select>
             </div>
@@ -33,7 +33,7 @@ const gMarkup = `
         <p class="control"> : </p>
         <div class="control">
             <div class="select">
-                <select id="seconds" aria-label="seconds">
+                <select data-js="select-seconds" aria-label="seconds">
                     <option value="0">00</option>
                 </select>
             </div>
@@ -41,7 +41,7 @@ const gMarkup = `
     </div>
     <div class="field is-grouped is-grouped-centered">
         <div>
-            <button id="ok" data-js="button-ok" class="button is-success">OK</button>
+            <button data-js="button-ok" class="button is-success">OK</button>
         </div>
     </div>
 `;
@@ -73,16 +73,18 @@ class ComponentDuration extends HTMLElement {
         this._template.innerHTML = gMarkup;
 
         this.populatedTemplate = this._template.content.cloneNode(true);
-        this.shadowOutermost = this.populatedTemplate.getElementById('outermost');
-        this.shadowHours = this.populatedTemplate.getElementById('hours');
-        this.shadowMinutes = this.populatedTemplate.getElementById('minutes');
-        this.shadowSeconds = this.populatedTemplate.getElementById('seconds');
+        this.shadowOutermost = this.populatedTemplate.querySelector('[data-js="outermost"]');
+        this.shadowHours = this.populatedTemplate.querySelector('[data-js="select-hours"]');
+        this.shadowMinutes = this.populatedTemplate.querySelector('[data-js="select-minutes"]');
+        this.shadowSeconds = this.populatedTemplate.querySelector('[data-js="select-seconds"]');
         this.shadowOk = this.populatedTemplate.querySelector('[data-js="button-ok"]')
         appendOptions(this.shadowHours, 12);
         appendOptions(this.shadowMinutes, 60);
         appendOptions(this.shadowSeconds, 60);
         this.shadowOutermost.addEventListener('change', (e) => {
-            const id = e.target.id;
+            const dataJs = e.target.dataset.js;
+            const prefix = "select-";
+            let id = dataJs.indexOf(prefix) !== -1 ? dataJs.substring(prefix.length) : dataJs;
             const val = e.target.value;
             switch (id) {
                 case 'hours':
