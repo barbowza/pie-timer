@@ -41,7 +41,7 @@ const gMarkup = `
     </div>
     <div class="field is-grouped is-grouped-centered">
         <div>
-            <button id="ok" class="button is-success">OK</button>
+            <button id="ok" data-js="button-ok" class="button is-success">OK</button>
         </div>
     </div>
 `;
@@ -77,7 +77,7 @@ class ComponentDuration extends HTMLElement {
         this.shadowHours = this.populatedTemplate.getElementById('hours');
         this.shadowMinutes = this.populatedTemplate.getElementById('minutes');
         this.shadowSeconds = this.populatedTemplate.getElementById('seconds');
-        this.shadowOk = this.populatedTemplate.getElementById('ok');
+        this.shadowOk = this.populatedTemplate.querySelector('[data-js="button-ok"]')
         appendOptions(this.shadowHours, 12);
         appendOptions(this.shadowMinutes, 60);
         appendOptions(this.shadowSeconds, 60);
