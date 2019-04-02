@@ -27,10 +27,15 @@ context("Controls", () => {
     });
     
     // Cypress does not support shadowDom
-    // it("can set a Custom Duration", () => {
-    //   cy.get('select')
-    //     .select('Custom Duration')
-    //     .get('#ok')
-    // })
+    it("can set a Custom Duration", () => {
+      cy.get('select')
+        .select('Custom Duration')
+        .get('duration-select')
+        // .then(($el) => {
+        //   debugger;
+        // })
+        // .shadowDomElement( ['button'] ).click()
+        ;
+    })
   });
 });
