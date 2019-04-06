@@ -18,7 +18,7 @@ const gOptions = [
 const gOptionCustom = { "value": "custom", "text": "Custom Duration", "last": true };
 const MAX_DURATION = 12 * 60*60 - 1;
 
-export function Controls (rootNode, pie, timer, elSelectDuration, modalDuration = null) {
+export function Controls (rootNode, animator, pie, timer, elSelectDuration, modalDuration = null) {
     this._debug = 0;
     this._rootNode = rootNode;
 
@@ -29,7 +29,7 @@ export function Controls (rootNode, pie, timer, elSelectDuration, modalDuration 
 
     this._options = gOptions;
 
-    this._animationFrameRequest = null; // Handle to requestAnimationFrame
+    this._animator = animator;
     this._pie = pie;
     this._timer = timer;
     this._elSelectDuration = elSelectDuration;
@@ -105,9 +105,9 @@ Controls.prototype._attachControls = function() {
         if (el.classList.contains('evt-start-pause')) {
             if (this._StartPause === this._txtStart) {
                 this._timer.start();
-                this._startAnimation(this._pie);
+                this._animator.start()
             } else {
-                this._pauseAnimation();
+                this._animator.pause();
             }
             this._StartPause = this._StartPause === this._txtStart ? this._txtPause : this._txtStart;
             this._elBtnsStart.forEach((button) => {
@@ -147,28 +147,6 @@ Controls.prototype._attachControls = function() {
             }
         }
     });
-}
-
-/**
- * Animation is driven by the browser repaint event 
- * https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
- */
-Controls.prototype._startAnimation = function () {
-    const animate = () => {
-        this._timer.tick();
-        const percentage = this._pie.percentage = this._timer.percentElapsed;
-        this._pie.draw();
-        if (percentage >= 1) {
-            this._timer.lap();
-        }
-        this._animationFrameRequest = requestAnimationFrame(animate);   // Setup the next tick
-    };
-    animate();  // Perform the first tick
-}
-
-Controls.prototype._pauseAnimation = function () {
-    cancelAnimationFrame(this._animationFrameRequest);
-    this._animationFrameRequest = null;
 }
 
 Controls.prototype._setDurationFromSeconds = function (seconds) {
