@@ -14,8 +14,8 @@ export function InfoPanel (node, dataSource) {
         <table class="table is-fullwidth">
             <tbody>
                 <tr>
-                    <td>Loop</td>
-                    <td>${props.loops}</td>
+                    <td>Laps</td>
+                    <td>${props.laps}</td>
                 </tr>
                 <tr>
                     <td>Time</td>
