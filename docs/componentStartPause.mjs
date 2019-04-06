@@ -1,23 +1,44 @@
 "use strict";
 
-const template = document.createElement('template');
-template.innerHTML = `
-  <style>
-    button, p {
-      display: inline-block;
-    }
-  </style>
-  <button aria-label="decrement">-</button>
-    <p>0</p>
-  <button aria-label="increment">+</button>
+// const template = document.createElement('template');
+const template = `
+<style>
+.btn-start-pause {
+    width: 5em;
+}
+</style>
+<a data-js="btn-start-pause" class="button is-success btn-start-pause evt-start-pause">Start</a>
 `;
 
-class XCounter extends HTMLElement {
+class ComponentStartPause extends HTMLElement {
+  static get Start() {
+    return "Start";
+  }
+  static get Pause() {
+    return "Pause";
+  }
+  static get state() {
+    return gStartPause;
+  }
   constructor() {
     super();
-    this.root = this.attachShadow({ mode: 'open' });
-    this.root.appendChild(template.content.cloneNode(true));
   }
-}
+  connectedCallback() {
+    this.innerHTML = template;
+  }
 
-customElements.define('x-counter', XCounter);
+  static toggle() {
+    gStartPause = gStartPause === ComponentStartPause.Start
+      ? ComponentStartPause.Pause
+      : ComponentStartPause.Start;
+    const all = document.querySelectorAll('a[data-js="btn-start-pause"]');
+    all.forEach(button => {
+      button.text = gStartPause;
+    });
+  }
+
+  
+}
+let gStartPause = ComponentStartPause.Start;
+
+customElements.define("btn-start-pause", ComponentStartPause);

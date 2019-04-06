@@ -22,10 +22,10 @@ export function Controls (rootNode, animator, pie, timer, elSelectDuration, moda
     this._debug = 0;
     this._rootNode = rootNode;
 
-    this._txtStart = 'Start';
-    this._txtPause = 'Pause';
-    this._elBtnsStart = rootNode.querySelectorAll('[data-js="btn-start-pause"]');
-    this._StartPause = this._txtStart;
+    // this._txtStart = 'Start';
+    // this._txtPause = 'Pause';
+    // this._elBtnsStart = rootNode.querySelectorAll('[data-js="btn-start-pause"]');
+    // this._StartPause = this._txtStart;
 
     this._options = gOptions;
 
@@ -103,16 +103,13 @@ Controls.prototype._attachControls = function() {
     this._rootNode.addEventListener('click', (e) => {
         const el = e.target;
         if (el.classList.contains('evt-start-pause')) {
-            if (this._StartPause === this._txtStart) {
+            if (ComponentStartPause.state === ComponentStartPause.Start) {
                 this._timer.start();
-                this._animator.start()
+                this._animator.start();
             } else {
                 this._animator.pause();
             }
-            this._StartPause = this._StartPause === this._txtStart ? this._txtPause : this._txtStart;
-            this._elBtnsStart.forEach((button) => {
-                button.text = this._StartPause;
-            });
+            ComponentStartPause.toggle();
         } else if (el.classList.contains('evt-reset')) {
             this._timer.reset();
             this._pie.percentage = 0;

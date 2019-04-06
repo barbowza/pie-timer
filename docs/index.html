@@ -9,11 +9,6 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="bulma_darkTheme.css" />
     <script defer src="fontAwesome.v5.7.2.some.js"></script>
-    <style>
-        .btn-start-pause {
-            width: 5em;
-        }
-    </style>
 </head>
 <body>
     <!-- Title -->
@@ -27,8 +22,9 @@
     </section>
 
     <div>
-        <x-counter></x-counter>
+        <btn-start-pause></btn-start-pause>
     </div>
+
     <section class="section">
         <!-- Main -->
         <div class="container">
@@ -60,7 +56,7 @@
                 </div>
 
                 <p class="control">
-                    <a data-js="btn-start-pause" class="button is-success btn-start-pause evt-start-pause">Start</a>
+                    <btn-start-pause></btn-start-pause>
                 </p>
                 <p class="control">
                     <a class="button is-success btn-reset evt-reset">Reset</a>
