@@ -96,7 +96,7 @@ Controls.prototype._setDurationSelectToOptionByValue = function (value) {
 Controls.prototype._attachControls = function() {
     this._document.addEventListener('click', (e) => {
         const el = e.target;
-        if (el.classList.contains('btn-start-pause')) {
+        if (el.classList.contains('evt-start-pause')) {
             const txtStart = 'Start';
             const txtPause = 'Pause';
             if (el.text === txtStart) {
