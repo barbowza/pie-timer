@@ -8,6 +8,7 @@ export function Timer () {
     this._startTime = null;
     this._laps = 0;
     this._timeAccrued = 0;
+    this._hasStarted = false;
 
     Object.defineProperty(this, 'milliseconds', {
         get: function () {
@@ -40,13 +41,14 @@ Timer.HOUR = Timer.MINUTE * 60;
 Timer.prototype.start = function () {
     this._currentTime = performance.now();
     this._startTime = this._currentTime - this._elapsed;
+    this._hasStarted = true;
 }
 
 Timer.prototype.lap = function () {
-    this._startTime = this._currentTime;
+    this._timeAccrued += (this._currentTime - this._startTime);
     ++this._laps;
+    this._startTime = this._currentTime;
     this._elapsed = 0;
-    this._timeAccrued += this._duration;
 }
 
 Timer.prototype.tick = function () {
@@ -54,10 +56,19 @@ Timer.prototype.tick = function () {
     this._elapsed = this._currentTime - this._startTime;
 }
 
+/* Reset operates on two levels. First Reset sets only current lap time to Zero. If Reset
+ * is hit again before timer is restarted then all tracked values are reset
+*/
 Timer.prototype.reset = function () {
+    if (this._hasStarted === false) {
+        this._laps = this._timeAccrued = 0;
+    } else {
+        this._timeAccrued += this._elapsed;
+    }
+
     this._elapsed = 0;
     this._startTime = this._currentTime = performance.now();
-    this._laps = 0;
+    this._hasStarted = false;
 }
 
 Timer.prototype.getDurationAsText = function (duration) {
@@ -76,5 +87,5 @@ Timer.prototype.getElapsedTimeInSeconds = function () {
 }
 
 Timer.prototype.getTotalTimeInSeconds = function () {
-    return Math.floor(this._elapsed / this.milliseconds) + Math.floor(this._timeAccrued / this.milliseconds);
+    return this.getElapsedTimeInSeconds() + Math.floor(this._timeAccrued / this.milliseconds);
 }
