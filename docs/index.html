@@ -21,10 +21,6 @@
         </div>
     </section>
 
-    <div>
-        <btn-start-pause></btn-start-pause>
-    </div>
-
     <section class="section">
         <!-- Main -->
         <div class="container">
@@ -32,7 +28,7 @@
                 <!-- Pie Column -->
                 <div class="column is-three-fifths is-offset-one-fifth has-text-centered">
                     <svg viewBox="-1 -1 2 2" style="transform: rotate(-90deg)" preserveAspectRatio="xMidYMid">
-                        <path class="evt-start-pause" data-js="main-pie-path" d="M 1 0 A 1 1 0 0 1 1 0 L 0 0" fill="Coral" stroke="transparent" stroke-opacity="0"></path>
+                        <path data-js="main-pie-path" d="M 1 0 A 1 1 0 0 1 1 0 L 0 0" fill="Coral" stroke="transparent" stroke-opacity="0"></path>
                     </svg>
                 </div>
                 <!-- Info Column and Open Info Column (dynamically inserted) -->
@@ -106,6 +102,7 @@
     import { Animator } from './animator.mjs';
 
     const elPiePath = document.querySelector('[data-js="main-pie-path"]');
+    elPiePath.classList.add( ComponentStartPause.Event ); // click Pie == click Start/Pause
     const pie = new Pie(elPiePath);
     const timer = new Timer();
     const animator = new Animator(pie, timer);

@@ -1,5 +1,7 @@
 "use strict";
 
+const EVENT = 'evt-start-pause';
+const DATA_ID = 'button-start-pause';
 // const template = document.createElement('template');
 const template = `
 <style>
@@ -7,7 +9,7 @@ const template = `
     width: 5em;
 }
 </style>
-<a data-js="btn-start-pause" class="button is-success btn-start-pause evt-start-pause">Start</a>
+<a data-js="${DATA_ID}" class="button is-success btn-start-pause ${EVENT}">Start</a>
 `;
 
 class ComponentStartPause extends HTMLElement {
@@ -17,8 +19,14 @@ class ComponentStartPause extends HTMLElement {
   static get Pause() {
     return "Pause";
   }
-  static get state() {
+  static get State() {
     return gStartPause;
+  }
+  static get Event() {
+      return EVENT;
+  }
+  static get DataId() {
+      return DATA_ID;
   }
   constructor() {
     super();
@@ -31,14 +39,14 @@ class ComponentStartPause extends HTMLElement {
     gStartPause = gStartPause === ComponentStartPause.Start
       ? ComponentStartPause.Pause
       : ComponentStartPause.Start;
-    const all = document.querySelectorAll('a[data-js="btn-start-pause"]');
+    const all = document.querySelectorAll(`a[data-js="${DATA_ID}"]`);
     all.forEach(button => {
       button.text = gStartPause;
     });
   }
 
   static click() {
-    const el = document.querySelector('a[data-js="btn-start-pause"]');
+    const el = document.querySelector(`a[data-js="${DATA_ID}"]`);
     el.click();
   }
   

@@ -97,8 +97,8 @@ Controls.prototype._setDurationSelectToOptionByValue = function (value) {
 Controls.prototype._attachControls = function() {
     this._rootNode.addEventListener('click', (e) => {
         const el = e.target;
-        if (el.classList.contains('evt-start-pause')) {
-            if (ComponentStartPause.state === ComponentStartPause.Start) {
+        if (el.classList.contains(ComponentStartPause.Event)) {
+            if (ComponentStartPause.State === ComponentStartPause.Start) {
                 this._timer.start();
                 this._animator.start();
             } else {
