@@ -113,7 +113,7 @@ Controls.prototype._attachControls = function() {
             this._elBtnsStart.forEach((button) => {
                 button.text = this._StartPause;
             });
-        } else if (el.classList.contains('btn-reset')) {
+        } else if (el.classList.contains('evt-reset')) {
             this._timer.reset();
             this._pie.percentage = 0;
             this._pie.draw();

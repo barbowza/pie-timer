@@ -60,7 +60,7 @@
                     <a data-js="btn-start-pause" class="button is-success btn-start-pause evt-start-pause">Start</a>
                 </p>
                 <p class="control">
-                    <a class="button is-success btn-reset">Reset</a>
+                    <a class="button is-success btn-reset evt-reset">Reset</a>
                 </p>
             </div>
         </div>
@@ -107,11 +107,12 @@
 
     const elPiePath = document.querySelector('[data-js="main-pie-path"]');
     const pie = new Pie(elPiePath);
+    const timer = new Timer();
+    const animator = new Animator(pie, timer);
+    
     const elModalDuration = document.querySelector('[data-js="picker-duration"]');
     const modalDuration = new Modal(elModalDuration);
     const elSelectDuration = document.querySelector('[data-js="select-duration"]');
-    const timer = new Timer();
-    const animator = new Animator(pie, timer);
     const controls = new Controls(document, animator, pie, timer, elSelectDuration, modalDuration);
     pie.draw();
 
