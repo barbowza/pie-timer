@@ -37,6 +37,10 @@ class ComponentStartPause extends HTMLElement {
     });
   }
 
+  static click() {
+    const el = document.querySelector('a[data-js="btn-start-pause"]');
+    el.click();
+  }
   
 }
 let gStartPause = ComponentStartPause.Start;

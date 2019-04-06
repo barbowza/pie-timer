@@ -22,11 +22,6 @@ export function Controls (rootNode, animator, pie, timer, elSelectDuration, moda
     this._debug = 0;
     this._rootNode = rootNode;
 
-    // this._txtStart = 'Start';
-    // this._txtPause = 'Pause';
-    // this._elBtnsStart = rootNode.querySelectorAll('[data-js="btn-start-pause"]');
-    // this._StartPause = this._txtStart;
-
     this._options = gOptions;
 
     this._animator = animator;
@@ -118,15 +113,15 @@ Controls.prototype._attachControls = function() {
     });
 
     // Keyboard shortcuts
+    // TODO Refactor into index.html. 
     this._rootNode.body.onkeyup = (() => {
-        const elStart = this._getButtonByText('Start');
         const SPACE_KEYCODE = 32;
-        const elReset = this._getButtonByText('Reset');
         const R_KEYCODE = 82;
+        const elReset = this._getButtonByText('Reset');
         return (e) => {
             // Spacebar toggle Start / Pause 
             if(e.keyCode === SPACE_KEYCODE) {
-                elStart.click();
+                ComponentStartPause.click();
             } else if (e.keyCode === R_KEYCODE) {
                 elReset.click();
             }
