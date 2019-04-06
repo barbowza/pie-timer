@@ -18,9 +18,15 @@ const gOptions = [
 const gOptionCustom = { "value": "custom", "text": "Custom Duration", "last": true };
 const MAX_DURATION = 12 * 60*60 - 1;
 
-export function Controls (document, pie, timer, elSelectDuration, modalDuration = null) {
+export function Controls (rootNode, pie, timer, elSelectDuration, modalDuration = null) {
     this._debug = 0;
-    this._document = document;
+    this._rootNode = rootNode;
+
+    this._txtStart = 'Start';
+    this._txtPause = 'Pause';
+    this._elBtnsStart = rootNode.querySelectorAll('[data-js="btn-start-pause"]');
+    this._StartPause = this._txtStart;
+
     this._options = gOptions;
 
     this._animationFrameRequest = null; // Handle to requestAnimationFrame
@@ -71,7 +77,7 @@ Controls.prototype.SetCustomDuration = function (customDuration) {
 Controls.prototype._populateDuration = function () {
     this._elSelectDuration.innerHTML = '';      // remove ALL child nodes of <select>
     this._options.forEach(option => {
-        const opt = this._document.createElement("option");
+        const opt = this._rootNode.createElement("option");
         opt.value = option.value;
         opt.innerHTML = option.text;
         if (option.disabled) {
@@ -94,19 +100,19 @@ Controls.prototype._setDurationSelectToOptionByValue = function (value) {
 }
 
 Controls.prototype._attachControls = function() {
-    this._document.addEventListener('click', (e) => {
+    this._rootNode.addEventListener('click', (e) => {
         const el = e.target;
         if (el.classList.contains('evt-start-pause')) {
-            const txtStart = 'Start';
-            const txtPause = 'Pause';
-            if (el.text === txtStart) {
+            if (this._StartPause === this._txtStart) {
                 this._timer.start();
                 this._startAnimation(this._pie);
-                e.target.text = txtPause;
-            } else if (el.text === txtPause) {
+            } else {
                 this._pauseAnimation();
-                e.target.text = txtStart;
             }
+            this._StartPause = this._StartPause === this._txtStart ? this._txtPause : this._txtStart;
+            this._elBtnsStart.forEach((button) => {
+                button.text = this._StartPause;
+            });
         } else if (el.classList.contains('btn-reset')) {
             this._timer.reset();
             this._pie.percentage = 0;
@@ -115,7 +121,7 @@ Controls.prototype._attachControls = function() {
     });
 
     // Keyboard shortcuts
-    this._document.body.onkeyup = (() => {
+    this._rootNode.body.onkeyup = (() => {
         const elStart = this._getButtonByText('Start');
         const SPACE_KEYCODE = 32;
         const elReset = this._getButtonByText('Reset');
@@ -130,7 +136,7 @@ Controls.prototype._attachControls = function() {
         }
     })();
 
-    this._document.addEventListener('change', (e) => {
+    this._rootNode.addEventListener('change', (e) => {
         if (this._elSelectDuration === e.target) {
             const val = e.target.value;
             if (isNumeric(val)) {
@@ -173,7 +179,7 @@ Controls.prototype._getButtonByText = function (text)
 {
     // https://stackoverflow.com/a/29289196
     const xpath = `//a[text()='${text}']`;
-    return this._document.evaluate(xpath, this._document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;    
+    return this._rootNode.evaluate(xpath, this._rootNode, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;    
 }
 
 
