@@ -61,6 +61,14 @@
         </div>
     </section>
 
+
+
+    <section class="section">
+        <pie-cmpt id="main-pie-cmpt"></pie-cmpt>
+    </section>
+
+
+
     <!-- Duration Picker Modal -->
     <div class="modal is-clipped" data-js="picker-duration">
         <div class="modal-background has-background-primary"></div>
@@ -92,6 +100,7 @@
 </body>
 <script src="componentDuration.mjs"></script>
 <script src="componentStartPause.mjs"></script>
+<script src="componentPie.mjs"></script>
 
 <script type="module">
     import { Pie } from './pie.mjs';
@@ -101,23 +110,31 @@
     import { InfoPanel } from './infoPanel.mjs';
     import { Animator } from './animator.mjs';
 
-    const elPiePath = document.querySelector('[data-js="main-pie-path"]');
-    elPiePath.classList.add( ComponentStartPause.Event ); // click Pie == click Start/Pause
-    const pie = new Pie(elPiePath);
+    const elPie = document.querySelector('#main-pie-cmpt')
+    // elPie.classList.add( ComponentStartPause.Event ); // click Pie == click Start/Pause
     const timer = new Timer();
-    const animator = new Animator(pie, timer);
+    const animator = new Animator(elPie, timer);
+
+
+    const XelPiePath = document.querySelector('[data-js="main-pie-path"]');
+    XelPiePath.classList.add( ComponentStartPause.Event ); // click Pie == click Start/Pause
+    const Xpie = new Pie(XelPiePath);
+    const Xtimer = new Timer();
+    const Xanimator = new Animator(Xpie, Xtimer);
     
     const elModalDuration = document.querySelector('[data-js="picker-duration"]');
     const modalDuration = new Modal(elModalDuration);
     const elSelectDuration = document.querySelector('[data-js="select-duration"]');
-    const controls = new Controls(document, animator, pie, timer, elSelectDuration, modalDuration);
-    pie.draw();
+    // const Xcontrols = new Controls(document, Xanimator, Xpie, Xtimer, elSelectDuration, modalDuration);
+    // Xpie.draw();
+
+    const controls = new Controls(document, animator, elPie, timer, elSelectDuration, modalDuration);
 
     // On success of Duration Modal close modal and update controls with result
     document.addEventListener(ComponentDuration.eventSuccessName, (e) => {
       const customDuration = e.detail.duration;
       modalDuration.close();
-      controls.SetCustomDuration(customDuration);
+      Xcontrols.SetCustomDuration(customDuration);
     }, false);
 
     // Handle the open and close of Info Panel
