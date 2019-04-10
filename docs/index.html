@@ -110,10 +110,8 @@
         import { InfoPanel } from './infoPanel.mjs';
         import { Animator } from './animator.mjs';
 
+        // Initialise Dual Panels with icons
         const elDualPanels = document.querySelector('#dual-panels');
-        const elPie = document.createElement('pie-cmpt');
-        elDualPanels.populateMain(elPie);
-
         const elTemplateInfoIcon = document.querySelector('[data-js="template-info-icon"]');
         const elInfoIcon = document.importNode(elTemplateInfoIcon.content, true);
         elDualPanels.replaceOpenIcon(elInfoIcon);
@@ -121,17 +119,22 @@
         const elCloseIcon = document.importNode(elTemplateCloseIcon.content, true);
         elDualPanels.replaceCloseIcon(elCloseIcon);
 
-        
+        // Create Pie and attach it with a timer to the animator
+        const elPie = document.createElement('pie-cmpt');
+        elDualPanels.populateMain(elPie);
         elPie.setPathClickEvent(ComponentStartPause.Event); // click Pie's path == click Start/Pause
         const timer = new Timer();
         const animator = new Animator(elPie, timer);
 
+        // Initialise the Custom Duration modal
         const elModalDuration = document.querySelector('[data-js="picker-duration"]');
         const modalDuration = new Modal(elModalDuration);
+
+        // Initialise the Controls
         const elSelectDuration = document.querySelector('[data-js="select-duration"]');
         const controls = new Controls(document, animator, elPie, timer, elSelectDuration, modalDuration);
 
-        // On success of Duration Modal close modal and update controls with result
+        // On success close of Duration Modal update controls
         document.addEventListener(
             ComponentDuration.eventSuccessName,
             e => {
@@ -142,7 +145,11 @@
             false
         );
 
-        // Callbacks to update info elements of same name
+        // Add a wrapper for Info Panel to Dual Panels
+        const elInfoContent = document.createElement('div');
+        elDualPanels.populateSecond(elInfoContent);
+
+        // Callback fn to update info elements of same name
         const infoCalculator = (() => {
             return {
                 laps: () => {
@@ -156,9 +163,6 @@
                 },
             };
         })();
-
-        const elInfoContent = document.createElement('div');
-        elDualPanels.populateSecond(elInfoContent);
 
         const infoPanel = new InfoPanel(elInfoContent, infoCalculator);
         let hInfoTimer = window.setInterval(function() {
