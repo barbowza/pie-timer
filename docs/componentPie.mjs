@@ -4,6 +4,18 @@ class ComponentPie extends HTMLElement {
     get template() {
         return `
     
+        <svg 
+            viewBox="-1 -1 2 2" style="transform: rotate(-90deg)" preserveAspectRatio="xMidYMid">
+            <path data-js="pie-path" 
+                d="M 1 0 A 1 1 0 1 1 1 -2.4492935982947064e-16 L 0 0" fill="Coral" stroke="transparent" stroke-opacity="0"></path>
+        </svg>
+    
+        `;
+    }
+
+    get template_with_viewport() {
+        return `
+    
         <svg width="${this._viewport.x}" height="${this._viewport.y}" 
             viewBox="-1 -1 2 2" style="transform: rotate(-90deg)" preserveAspectRatio="xMidYMid">
             <path data-js="pie-path" 
