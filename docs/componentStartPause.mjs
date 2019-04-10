@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const EVENT = 'evt-start-pause';
 const DATA_ID = 'button-start-pause';
@@ -13,44 +13,41 @@ const template = `
 `;
 
 class ComponentStartPause extends HTMLElement {
-  static get Start() {
-    return "Start";
-  }
-  static get Pause() {
-    return "Pause";
-  }
-  static get State() {
-    return gStartPause;
-  }
-  static get Event() {
-      return EVENT;
-  }
-  static get DataId() {
-      return DATA_ID;
-  }
-  constructor() {
-    super();
-  }
-  connectedCallback() {
-    this.innerHTML = template;
-  }
+    static get Start() {
+        return 'Start';
+    }
+    static get Pause() {
+        return 'Pause';
+    }
+    static get State() {
+        return gStartPause;
+    }
+    static get Event() {
+        return EVENT;
+    }
+    static get DataId() {
+        return DATA_ID;
+    }
+    constructor() {
+        super();
+    }
+    connectedCallback() {
+        this.innerHTML = template;
+    }
 
-  static toggle() {
-    gStartPause = gStartPause === ComponentStartPause.Start
-      ? ComponentStartPause.Pause
-      : ComponentStartPause.Start;
-    const all = document.querySelectorAll(`a[data-js="${DATA_ID}"]`);
-    all.forEach(button => {
-      button.text = gStartPause;
-    });
-  }
+    static toggle() {
+        gStartPause = gStartPause === ComponentStartPause.Start ? ComponentStartPause.Pause : ComponentStartPause.Start;
+        const all = document.querySelectorAll(`a[data-js="${DATA_ID}"]`);
+        all.forEach(button => {
+            button.text = gStartPause;
+        });
+    }
 
-  static click() {
-    const el = document.querySelector(`a[data-js="${DATA_ID}"]`);
-    el.click();
-  }
-  
+    static click() {
+        const el = document.querySelector(`a[data-js="${DATA_ID}"]`);
+        el.click();
+    }
 }
 let gStartPause = ComponentStartPause.Start;
 
-customElements.define("btn-start-pause", ComponentStartPause);
+customElements.define('btn-start-pause', ComponentStartPause);
