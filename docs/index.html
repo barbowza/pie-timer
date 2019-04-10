@@ -1,180 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Pie Timer</title>
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="bulma_darkTheme.css" />
-    <script defer src="fontAwesome.v5.7.2.some.js"></script>
-</head>
-<body>
-    <!-- Title -->
-    <section class="hero is-info is-bold is-small">
-        <div class="hero-body">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Pie Timer</title>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        <link rel="stylesheet" href="bulma_darkTheme.css" />
+        <script defer src="fontAwesome.v5.7.2.some.js"></script>
+    </head>
+    <body>
+        <!-- Title -->
+        <section class="hero is-info is-bold is-small">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title">Pie Timer</h1>
+                    <h2 class="subtitle">Practice Like You Mean It!</h2>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <!-- Main -->
             <div class="container">
-                <h1 class="title">Pie Timer</h1>
-                <h2 class="subtitle">Practice Like You Mean It!</h2>
-            </div>
-        </div>
-    </section>
-
-    <section class="section">
-        <!-- Main -->
-        <div class="container">
-            <div class="columns is-mobile" data-js="main-columns">
-                <!-- Pie Column -->
-                <div class="column is-three-fifths is-offset-one-fifth has-text-centered">
+                <div class="columns is-mobile" data-js="main-columns">
+                    <!-- Pie Column -->
+                    <div class="column is-three-fifths is-offset-one-fifth has-text-centered">
                         <pie-cmpt id="main-pie-cmpt"></pie-cmpt>
-                </div>
-                <!-- Info Column and Open Info Column (dynamically inserted) -->
-            </div>
-        </div>
-
-        <!-- Vertical Space -->
-        <div class="container">
-            <br>
-        </div>
-
-        <!-- Basic Controls - Duration Start/Pause Reset-->
-        <div class="container">
-            <div class="field is-grouped is-grouped-centered">
-                <div class="control">
-                    <div class="select is-rounded">
-                        <select data-js="select-duration">
-                            <option>-- Duration --</option>
-                        </select>
                     </div>
+                    <!-- Info Column and Open Info Column (dynamically inserted) -->
                 </div>
-
-                <p class="control">
-                    <btn-start-pause></btn-start-pause>
-                </p>
-                <p class="control">
-                    <a class="button is-success btn-reset evt-reset">Reset</a>
-                </p>
             </div>
+
+            <!-- Vertical Space -->
+            <div class="container">
+                <br />
+            </div>
+
+            <!-- Basic Controls - Duration Start/Pause Reset-->
+            <div class="container">
+                <div class="field is-grouped is-grouped-centered">
+                    <div class="control">
+                        <div class="select is-rounded">
+                            <select data-js="select-duration">
+                                <option>-- Duration --</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <p class="control">
+                        <btn-start-pause></btn-start-pause>
+                    </p>
+                    <p class="control">
+                        <a class="button is-success btn-reset evt-reset">Reset</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Duration Picker Modal -->
+        <div class="modal is-clipped" data-js="picker-duration">
+            <div class="modal-background has-background-primary"></div>
+            <div class="modal-content">
+                <duration-select></duration-select>
+            </div>
+            <button class="modal-close is-large btn-close" aria-label="close"></button>
         </div>
-    </section>
 
-
-
-    <!-- Duration Picker Modal -->
-    <div class="modal is-clipped" data-js="picker-duration">
-        <div class="modal-background has-background-primary"></div>
-        <div class="modal-content">
-            <duration-select></duration-select>
-        </div>
-        <button class="modal-close is-large btn-close" aria-label="close"></button>
-    </div>
-
-    <!-- Template Open Info Column -->
-    <template data-js="template-info-hidden">
-        <div class="column is-one-fifth has-text-centered">
+        <!-- Template Open Info Column -->
+        <template data-js="template-info-hidden">
+            <div class="column is-one-fifth has-text-centered">
                 <span class="icon is-medium has-text-info is-pulled-right action-open-info">
                     <i class="fa fa-info-circle fa-2x"></i>
                 </span>
-        </div>
-    </template>
+            </div>
+        </template>
 
-    <!-- Template Info Panel -->
-    <template data-js="template-info-panel">
-        <div class="column is-two-fifths has-text-centered">
-            <span class="icon is-medium has-text-info is-pulled-right action-close-info">
-                <i class="fa fa-times-circle fa-2x"></i>
-            </span>
-            <div data-js="info-panel-content"></div>
-        </div>
-    </template>
+        <!-- Template Info Panel -->
+        <template data-js="template-info-panel">
+            <div class="column is-two-fifths has-text-centered">
+                <span class="icon is-medium has-text-info is-pulled-right action-close-info">
+                    <i class="fa fa-times-circle fa-2x"></i>
+                </span>
+                <div data-js="info-panel-content"></div>
+            </div>
+        </template>
+    </body>
+    <script src="componentDuration.mjs"></script>
+    <script src="componentStartPause.mjs"></script>
+    <script src="componentPie.mjs"></script>
 
-</body>
-<script src="componentDuration.mjs"></script>
-<script src="componentStartPause.mjs"></script>
-<script src="componentPie.mjs"></script>
+    <script type="module">
+        import { Controls } from './controls.mjs';
+        import { Modal } from './modal.mjs';
+        import { Timer } from './timer.mjs';
+        import { InfoPanel } from './infoPanel.mjs';
+        import { Animator } from './animator.mjs';
 
-<script type="module">
-    import { Controls } from './controls.mjs';
-    import { Modal } from './modal.mjs';
-    import { Timer } from './timer.mjs';
-    import { InfoPanel } from './infoPanel.mjs';
-    import { Animator } from './animator.mjs';
+        const elPie = document.querySelector('#main-pie-cmpt');
+        // elPie.classList.add( ComponentStartPause.Event ); // click Pie == click Start/Pause
+        const timer = new Timer();
+        const animator = new Animator(elPie, timer);
 
-    const elPie = document.querySelector('#main-pie-cmpt')
-    // elPie.classList.add( ComponentStartPause.Event ); // click Pie == click Start/Pause
-    const timer = new Timer();
-    const animator = new Animator(elPie, timer);
+        const elModalDuration = document.querySelector('[data-js="picker-duration"]');
+        const modalDuration = new Modal(elModalDuration);
+        const elSelectDuration = document.querySelector('[data-js="select-duration"]');
+        const controls = new Controls(document, animator, elPie, timer, elSelectDuration, modalDuration);
 
-    const elModalDuration = document.querySelector('[data-js="picker-duration"]');
-    const modalDuration = new Modal(elModalDuration);
-    const elSelectDuration = document.querySelector('[data-js="select-duration"]');
-    const controls = new Controls(document, animator, elPie, timer, elSelectDuration, modalDuration);
-
-    // On success of Duration Modal close modal and update controls with result
-    document.addEventListener(ComponentDuration.eventSuccessName, (e) => {
-      const customDuration = e.detail.duration;
-      modalDuration.close();
-      controls.SetCustomDuration(customDuration);
-    }, false);
-
-    // Handle the open and close of Info Panel
-    const idActionOpen = '.action-open-info';
-    const idActionClose = '.action-close-info'
-    const elColumns = document.querySelector('[data-js="main-columns"]');
-    const elTemplateInfoHidden = document.querySelector('[data-js="template-info-hidden"]');
-    let templateOpenInfo = document.importNode(elTemplateInfoHidden.content, true); 
-    const elTemplateInfoPanel = document.querySelector('[data-js="template-info-panel"]');
-    let templateInfoPanel = document.importNode(elTemplateInfoPanel.content, true);
-
-    elColumns.addEventListener('click', (e) => {
-        if (nodeIsChild(e.target, idActionOpen)) {
-            templateOpenInfo = elColumns.removeChild(elColumns.lastElementChild);
-            elColumns.appendChild(templateInfoPanel);
-            elColumns.firstElementChild.classList.remove('is-offset-one-fifth');
-        }
-        else if (nodeIsChild(e.target, idActionClose)) {
-            templateInfoPanel = elColumns.removeChild(elColumns.lastElementChild);
-            elColumns.appendChild(templateOpenInfo);
-            elColumns.firstElementChild.classList.add('is-offset-one-fifth');
-        }
-    });
-    elColumns.appendChild(templateOpenInfo);
-
-    // Callbacks to update info elements of same name
-    const infoCalculator = (() => {
-        return {
-            laps: () => {
-                return timer.laps;
+        // On success of Duration Modal close modal and update controls with result
+        document.addEventListener(
+            ComponentDuration.eventSuccessName,
+            e => {
+                const customDuration = e.detail.duration;
+                modalDuration.close();
+                controls.SetCustomDuration(customDuration);
             },
-            time: () => {
-                return timer.getElapsedTimeInSeconds();
-            },
-            total: () => {
-                return timer.getTotalTimeInSeconds();
+            false
+        );
+
+        // Handle the open and close of Info Panel
+        const idActionOpen = '.action-open-info';
+        const idActionClose = '.action-close-info';
+        const elColumns = document.querySelector('[data-js="main-columns"]');
+        const elTemplateInfoHidden = document.querySelector('[data-js="template-info-hidden"]');
+        let templateOpenInfo = document.importNode(elTemplateInfoHidden.content, true);
+        const elTemplateInfoPanel = document.querySelector('[data-js="template-info-panel"]');
+        let templateInfoPanel = document.importNode(elTemplateInfoPanel.content, true);
+
+        elColumns.addEventListener('click', e => {
+            if (nodeIsChild(e.target, idActionOpen)) {
+                templateOpenInfo = elColumns.removeChild(elColumns.lastElementChild);
+                elColumns.appendChild(templateInfoPanel);
+                elColumns.firstElementChild.classList.remove('is-offset-one-fifth');
+            } else if (nodeIsChild(e.target, idActionClose)) {
+                templateInfoPanel = elColumns.removeChild(elColumns.lastElementChild);
+                elColumns.appendChild(templateOpenInfo);
+                elColumns.firstElementChild.classList.add('is-offset-one-fifth');
             }
-        }
-    })();
+        });
+        elColumns.appendChild(templateOpenInfo);
 
-    const elInfoContent = templateInfoPanel.querySelector('[data-js="info-panel-content"]');
-    const infoPanel = new InfoPanel(elInfoContent, infoCalculator);
-    let hInfoTimer = window.setInterval(function () {
-        // Refactor to function. This will then also be called by Pie complete event.
-        infoPanel.update();
-        infoPanel.render();
-    }, 100);
+        // Callbacks to update info elements of same name
+        const infoCalculator = (() => {
+            return {
+                laps: () => {
+                    return timer.laps;
+                },
+                time: () => {
+                    return timer.getElapsedTimeInSeconds();
+                },
+                total: () => {
+                    return timer.getTotalTimeInSeconds();
+                },
+            };
+        })();
 
+        const elInfoContent = templateInfoPanel.querySelector('[data-js="info-panel-content"]');
+        const infoPanel = new InfoPanel(elInfoContent, infoCalculator);
+        let hInfoTimer = window.setInterval(function() {
+            // Refactor to function. This will then also be called by Pie complete event.
+            infoPanel.update();
+            infoPanel.render();
+        }, 100);
 
-    // Helper nodeIsChild
-    function nodeIsChild (obj, parentSelector) {
-        while (obj !== undefined && obj !== null && obj.tagName.toUpperCase() != 'BODY') {
-            if (obj.matches(parentSelector)){
-                return true;
+        // Helper nodeIsChild
+        function nodeIsChild(obj, parentSelector) {
+            while (obj !== undefined && obj !== null && obj.tagName.toUpperCase() != 'BODY') {
+                if (obj.matches(parentSelector)) {
+                    return true;
+                }
+                obj = obj.parentNode;
             }
-            obj = obj.parentNode;
+            return false;
         }
-        return false;
-    }
-</script>
-
+    </script>
 </html>
