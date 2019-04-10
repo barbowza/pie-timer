@@ -33,8 +33,6 @@ class ComponentDualPanels extends HTMLElement {
         <!-- Main Panel always visible -->
         <div data-js="dp-panel-main-content" class="dp-panel-main">
             <!-- Main External Content -->
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe, molestiae exercitationem! Nostrum voluptate est
-            enim eveniet repellat officiis ratione dolorum.
         </div>
     
         <!-- Second Panel Closed contains Opener -->
@@ -46,7 +44,7 @@ class ComponentDualPanels extends HTMLElement {
             <div data-evt="${ComponentDualPanels.EVENT_CLOSE}" data-js="dp-close-icon" class="dp-icon-right"><button>x</button></div>
     
             <div data-js="dp-panel-second-content" style="clear: both;">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                <!-- Second External Content -->
             </div>
         </div>
     </div>
@@ -70,10 +68,11 @@ class ComponentDualPanels extends HTMLElement {
 
     connectedCallback() {
         this.innerHTML = this.gTemplate;
+        this._elDualPanels = this.querySelector('[data-js="dual-panels"]');
+        
         this._elMainContent = this.querySelector('[data-js="dp-panel-main-content"]');
         this._elSecondContent = this.querySelector('[data-js="dp-panel-second-content"]');
 
-        this._elDualPanels = this.querySelector('[data-js="dual-panels"]');
         this._elPanelClosed = this.querySelector('[data-js="dp-panel-second-closed"]');
         this._elPanelOpened = this.querySelector('[data-js="dp-panel-second-opened"]');
         this.addEventListener('click', this.clickOpenClose);
