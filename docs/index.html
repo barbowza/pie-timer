@@ -59,13 +59,15 @@
             </div>
         </section>
 
-        <!-- Duration Picker Modal -->
-        <div class="modal is-clipped" data-js="picker-duration">
-            <div class="modal-background has-background-primary"></div>
-            <div class="modal-content">
-                <duration-select></duration-select>
-            </div>
-            <button class="modal-close is-large btn-close" aria-label="close"></button>
+    <section class="section">
+            <dual-panels id="dual-panels"></dual-panels>
+    </section>
+
+    <!-- Duration Picker Modal -->
+    <div class="modal is-clipped" data-js="picker-duration">
+        <div class="modal-background has-background-primary"></div>
+        <div class="modal-content">
+            <duration-select></duration-select>
         </div>
 
         <!-- Template Open Info Column -->
@@ -90,7 +92,8 @@
     <script src="componentDuration.mjs"></script>
     <script src="componentStartPause.mjs"></script>
     <script src="componentPie.mjs"></script>
-
+    <script src="componentDualPanels.mjs"></script>
+    
     <script type="module">
         import { Controls } from './controls.mjs';
         import { Modal } from './modal.mjs';
