@@ -27,24 +27,28 @@ const gTemplate = `
     .dp-panel-show {
         display: inline;
     }
+    .dp-icon-right {
+        float: right;
+    }
 </style>
 
 <div data-js="dual-panels" class="dp-grid-closed">
     <!-- Main Panel always visible -->
     <div data-js="dp-panel-main-content" class="dp-panel-main">
         <!-- Main External Content -->
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe, molestiae exercitationem! Nostrum voluptate est enim eveniet repellat officiis ratione dolorum.
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe, molestiae exercitationem! Nostrum voluptate est
+        enim eveniet repellat officiis ratione dolorum.
     </div>
 
     <!-- Second Panel Closed contains Opener -->
     <div data-js="dp-panel-second-closed" class="dp-panel-second dp-panel-show">
-        <button data-js="${EVENT_OPEN}">i</button>
+        <div data-evt="${EVENT_OPEN}" data-js="dp-open-icon" class="dp-icon-right"><button>i</button></div>
     </div>
 
     <div data-js="dp-panel-second-opened" class="dp-panel-second dp-panel-hide">
-        <button data-js="${EVENT_CLOSE}">x</button>
+        <div data-evt="${EVENT_CLOSE}" data-js="dp-close-icon" class="dp-icon-right"><button>x</button></div>
 
-        <div data-js="dp-panel-second-content">
+        <div data-js="dp-panel-second-content" style="clear: both;">
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
         </div>
     </div>
@@ -69,12 +73,13 @@ class ComponentDualPanels extends HTMLElement {
     }
 
     clickOpenClose(e) {
-        console.log(e.target);
-        if (this.nodeIsChild(e.target, `[data-js="${EVENT_OPEN}"]`)) {
+        if (this.nodeIsChild(e.target, `[data-evt="${EVENT_OPEN}"]`)) {
+            console.log('open');
             this.swapClass(this._elDualPanels, 'dp-grid-opened', 'dp-grid-closed');
             this.swapClass(this._elPanelClosed, 'dp-panel-hide', 'dp-panel-show');
             this.swapClass(this._elPanelOpened, 'dp-panel-show', 'dp-panel-hide');
-        } else if (this.nodeIsChild(e.target, `[data-js="${EVENT_CLOSE}"]`)) {
+        } else if (this.nodeIsChild(e.target, `[data-evt="${EVENT_CLOSE}"]`)) {
+            console.log('close');
             this.swapClass(this._elDualPanels, 'dp-grid-closed', 'dp-grid-opened');
             this.swapClass(this._elPanelOpened, 'dp-panel-hide', 'dp-panel-show');
             this.swapClass(this._elPanelClosed, 'dp-panel-show', 'dp-panel-hide');
@@ -104,6 +109,18 @@ class ComponentDualPanels extends HTMLElement {
     populateSecond(content) {
         this._elSecondContent.innerHTML = '';
         this._elSecondContent.appendChild(content);
+    }
+
+    replaceOpenIcon(content) {
+        const el = this.querySelector('[data-js="dp-open-icon"]');
+        el.innerHTML = '';
+        el.appendChild(content);
+    }
+
+    replaceCloseIcon(content) {
+        const el = this.querySelector('[data-js="dp-close-icon"]');
+        el.innerHTML = '';
+        el.appendChild(content);
     }
 }
 
