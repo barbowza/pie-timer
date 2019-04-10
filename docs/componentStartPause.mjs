@@ -1,5 +1,6 @@
 'use strict';
 
+const TAG = 'btn-start-pause'; // <'btn-start-pause'>
 const EVENT = 'evt-start-pause';
 const DATA_ID = 'button-start-pause';
 // const template = document.createElement('template');
@@ -50,4 +51,4 @@ class ComponentStartPause extends HTMLElement {
 }
 let gStartPause = ComponentStartPause.Start;
 
-customElements.define('btn-start-pause', ComponentStartPause);
+customElements.define(TAG, ComponentStartPause);
