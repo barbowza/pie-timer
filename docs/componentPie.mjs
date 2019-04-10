@@ -6,7 +6,8 @@ class ComponentPie extends HTMLElement {
     
         <svg width="${this._viewport.x}" height="${this._viewport.y}" 
             viewBox="-1 -1 2 2" style="transform: rotate(-90deg)" preserveAspectRatio="xMidYMid">
-            <path data-js="pie-path" d="M 1 0 A 1 1 0 1 1 1 -2.4492935982947064e-16 L 0 0" fill="Coral" stroke="transparent" stroke-opacity="0" class="evt-start-pause"></path>
+            <path data-js="pie-path" 
+                d="M 1 0 A 1 1 0 1 1 1 -2.4492935982947064e-16 L 0 0" fill="Coral" stroke="transparent" stroke-opacity="0"></path>
         </svg>
     
         `;
@@ -21,8 +22,8 @@ class ComponentPie extends HTMLElement {
         this._percentage = this._startPercentage = 0;
         this._colour = 'SteelBlue';
         this._viewport = {
-            x: 300,
-            y: 300,
+            x: 250,
+            y: 250,
         };
     }
 
@@ -44,6 +45,10 @@ class ComponentPie extends HTMLElement {
     draw() {
         this._elPath.setAttribute('fill', this._colour);
         this._elPath.setAttribute('d', generatePath(this._startPercentage, this._percentage));
+    }
+    // Set the event (css class) that will be expected in handler when Path is clicked
+    setPathClickEvent(event) {
+        this._elPath.classList.add(event);
     }
 }
 

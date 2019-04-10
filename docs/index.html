@@ -99,7 +99,7 @@
         import { Animator } from './animator.mjs';
 
         const elPie = document.querySelector('#main-pie-cmpt');
-        // elPie.classList.add( ComponentStartPause.Event ); // click Pie == click Start/Pause
+        elPie.setPathClickEvent( ComponentStartPause.Event ); // click Pie's path == click Start/Pause
         const timer = new Timer();
         const animator = new Animator(elPie, timer);
 
