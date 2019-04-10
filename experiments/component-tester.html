@@ -14,8 +14,17 @@
 <body>
     <h1>Component Tester</h1>
     <div class="wrapper">
-        <dual-panels></dual-panels>
+        <dual-panels id="dual-panels"></dual-panels>
     </div>
 </body>
 <script src="componentDualPanels.mjs"></script>
+<script>
+    const elDualPanels = document.querySelector('#dual-panels');
+    const h2 = document.createElement('h2');
+    h2.textContent = 'Booyah!';
+    elDualPanels.populateMain(h2);
+    const i = document.createElement('i');
+    i.textContent = 'information';
+    elDualPanels.populateSecond(i);
+</script>
 </html>

@@ -95,6 +95,16 @@ class ComponentDualPanels extends HTMLElement {
         el.classList.remove(classOut);
         el.classList.add(classIn);
     }
+
+    populateMain(content) {
+        this._elMainContent.innerHTML = '';
+        this._elMainContent.appendChild(content);
+    }
+
+    populateSecond(content) {
+        this._elSecondContent.innerHTML = '';
+        this._elSecondContent.appendChild(content);
+    }
 }
 
 customElements.define(TAG, ComponentDualPanels);
