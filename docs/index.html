@@ -27,9 +27,7 @@
             <div class="columns is-mobile" data-js="main-columns">
                 <!-- Pie Column -->
                 <div class="column is-three-fifths is-offset-one-fifth has-text-centered">
-                    <svg viewBox="-1 -1 2 2" style="transform: rotate(-90deg)" preserveAspectRatio="xMidYMid">
-                        <path data-js="main-pie-path" d="M 1 0 A 1 1 0 0 1 1 0 L 0 0" fill="Coral" stroke="transparent" stroke-opacity="0"></path>
-                    </svg>
+                        <pie-cmpt id="main-pie-cmpt"></pie-cmpt>
                 </div>
                 <!-- Info Column and Open Info Column (dynamically inserted) -->
             </div>
@@ -59,12 +57,6 @@
                 </p>
             </div>
         </div>
-    </section>
-
-
-
-    <section class="section">
-        <pie-cmpt id="main-pie-cmpt"></pie-cmpt>
     </section>
 
 
@@ -103,7 +95,6 @@
 <script src="componentPie.mjs"></script>
 
 <script type="module">
-    import { Pie } from './pie.mjs';
     import { Controls } from './controls.mjs';
     import { Modal } from './modal.mjs';
     import { Timer } from './timer.mjs';
@@ -115,26 +106,16 @@
     const timer = new Timer();
     const animator = new Animator(elPie, timer);
 
-
-    const XelPiePath = document.querySelector('[data-js="main-pie-path"]');
-    XelPiePath.classList.add( ComponentStartPause.Event ); // click Pie == click Start/Pause
-    const Xpie = new Pie(XelPiePath);
-    const Xtimer = new Timer();
-    const Xanimator = new Animator(Xpie, Xtimer);
-    
     const elModalDuration = document.querySelector('[data-js="picker-duration"]');
     const modalDuration = new Modal(elModalDuration);
     const elSelectDuration = document.querySelector('[data-js="select-duration"]');
-    // const Xcontrols = new Controls(document, Xanimator, Xpie, Xtimer, elSelectDuration, modalDuration);
-    // Xpie.draw();
-
     const controls = new Controls(document, animator, elPie, timer, elSelectDuration, modalDuration);
 
     // On success of Duration Modal close modal and update controls with result
     document.addEventListener(ComponentDuration.eventSuccessName, (e) => {
       const customDuration = e.detail.duration;
       modalDuration.close();
-      Xcontrols.SetCustomDuration(customDuration);
+      controls.SetCustomDuration(customDuration);
     }, false);
 
     // Handle the open and close of Info Panel

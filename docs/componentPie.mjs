@@ -1,13 +1,16 @@
 'use strict';
 
 class ComponentPie extends HTMLElement {
-    template = `
+    get template() {
+        return `
     
-    <svg width="100" height="100" viewBox="-1 -1 2 2" style="transform: rotate(-90deg)" preserveAspectRatio="xMidYMid">
-        <path data-js="pie-path" d="M 1 0 A 1 1 0 1 1 1 -2.4492935982947064e-16 L 0 0" fill="Coral" stroke="transparent" stroke-opacity="0" class="evt-start-pause"></path>
-    </svg>
-
-    `;
+        <svg width="${this._viewport.x}" height="${this._viewport.y}" 
+            viewBox="-1 -1 2 2" style="transform: rotate(-90deg)" preserveAspectRatio="xMidYMid">
+            <path data-js="pie-path" d="M 1 0 A 1 1 0 1 1 1 -2.4492935982947064e-16 L 0 0" fill="Coral" stroke="transparent" stroke-opacity="0" class="evt-start-pause"></path>
+        </svg>
+    
+        `;
+    }
 
     static get TAG() {
         return 'pie-cmpt';
@@ -17,6 +20,10 @@ class ComponentPie extends HTMLElement {
         super();
         this._percentage = this._startPercentage = 0;
         this._colour = 'SteelBlue';
+        this._viewport = {
+            x: 300,
+            y: 300,
+        };
     }
 
     connectedCallback() {
