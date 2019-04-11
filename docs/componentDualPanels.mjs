@@ -6,11 +6,11 @@ class ComponentDualPanels extends HTMLElement {
     <style>
         .dp-grid-closed {
             display: grid;
-            grid-template-columns: 1fr 3fr 1fr;
+            grid-template-columns: 1fr 40vh 2em 1fr;
         }
         .dp-grid-opened {
             display: grid;
-            grid-template-columns: 0fr 3fr 2fr;
+            grid-template-columns: 1fr 30vh 10em 1fr;
         }
         .dp-panel-main {
             grid-column: 2;
