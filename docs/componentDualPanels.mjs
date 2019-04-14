@@ -64,6 +64,7 @@ class ComponentDualPanels extends HTMLElement {
     
     constructor() {
         super();
+        this._debug = false;
     }
 
     connectedCallback() {
@@ -80,12 +81,12 @@ class ComponentDualPanels extends HTMLElement {
 
     clickOpenClose(e) {
         if (this.nodeIsChild(e.target, `[data-evt="${ComponentDualPanels.EVENT_OPEN}"]`)) {
-            console.log('open');
+            this._debug && console.log('open');
             this.swapClass(this._elDualPanels, 'dp-grid-opened', 'dp-grid-closed');
             this.swapClass(this._elPanelClosed, 'dp-panel-hide', 'dp-panel-show');
             this.swapClass(this._elPanelOpened, 'dp-panel-show', 'dp-panel-hide');
         } else if (this.nodeIsChild(e.target, `[data-evt="${ComponentDualPanels.EVENT_CLOSE}"]`)) {
-            console.log('close');
+            this._debug && console.log('close');
             this.swapClass(this._elDualPanels, 'dp-grid-closed', 'dp-grid-opened');
             this.swapClass(this._elPanelOpened, 'dp-panel-hide', 'dp-panel-show');
             this.swapClass(this._elPanelClosed, 'dp-panel-show', 'dp-panel-hide');
