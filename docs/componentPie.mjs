@@ -29,10 +29,15 @@ class ComponentPie extends HTMLElement {
         return 'pie-cmpt';
     }
 
+    static get COLOURS() {
+        return ['DeepSkyBlue', 'Coral', 'Yellow', 'Orchid', 'ForestGreen', 'Crimson'];
+    }
+
     constructor() {
         super();
         this._percentage = this._startPercentage = 0;
-        this._colour = 'SteelBlue';
+        this._colour = ComponentPie.COLOURS[0];
+        this._lapColourChange = true;
         this._viewport = {
             x: 250,
             y: 250,
@@ -61,6 +66,16 @@ class ComponentPie extends HTMLElement {
     // Set the event (css class) that will be expected in handler when Path is clicked
     setPathClickEvent(event) {
         this._elPath.classList.add(event);
+    }
+    // Inform Pie it has completed one full revolution. This is an opportunity to perform
+    // visual reinforcement.
+    lap() {
+        if (this._lapColourChange) {
+            const colours = ComponentPie.COLOURS.filter((c) => {
+                return c !== this._colour;
+            });
+            this._colour =  colours[Math.floor(Math.random() * colours.length)];
+        }
     }
 }
 

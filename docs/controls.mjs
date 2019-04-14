@@ -1,8 +1,8 @@
 "use strict";
 const gOptions = [
     { "value": 0, "text": "-- Duration --", "first": true, disabled: true},
-    { "value": 1, "text": "1 second" },
-    { "value": 5, "text": "5 seconds", "default": true },
+    { "value": 1, "text": "1 second", "default": true },
+    { "value": 5, "text": "5 seconds"},
     { "value": 10, "text": "10 seconds" },
     { "value": 15, "text": "15 seconds" },
     { "value": 30, "text": "30 seconds" },

@@ -18,6 +18,7 @@ Animator.prototype.start = function () {
         this._pie.draw();
         if (percentage >= 1) {
             this._timer.lap();
+            this._pie.lap();
         }
         this._animationFrameRequest = requestAnimationFrame(animate);   // Setup the next tick
     };
