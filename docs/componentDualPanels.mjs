@@ -6,17 +6,21 @@ class ComponentDualPanels extends HTMLElement {
     <style>
         .dp-grid-closed {
             display: grid;
-            grid-template-columns: 1fr 40vh 2em 1fr;
+            grid-template-columns: auto 30vh 4em auto;
         }
         .dp-grid-opened {
             display: grid;
-            grid-template-columns: 1fr 30vh 10em 1fr;
+            grid-template-columns: auto 30vh 6em auto;
+            grid-column-gap: 1em;
         }
         .dp-panel-main {
             grid-column: 2;
         }
         .dp-panel-second {
             grid-column: 3;
+        }
+        .dp-panel-leftpad {
+            grid-column: 1;
         }
         .dp-panel-hide {
             display: none;
@@ -47,6 +51,7 @@ class ComponentDualPanels extends HTMLElement {
                 <!-- Second External Content -->
             </div>
         </div>
+        <div class="dp-panel-leftpad>&nbsp;</div>
     </div>
     
     `;
